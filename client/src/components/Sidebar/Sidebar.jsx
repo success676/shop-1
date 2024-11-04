@@ -7,6 +7,7 @@ import { MdLogin, MdLogout } from "react-icons/md";
 
 import { checkIsAuth, logout } from "../../redux/features/auth/authSlice";
 import { clearCart } from "../../redux/features/cart/cartSlice";
+import { clearFavorites } from "../../redux/features/favorites/favoritesSlice";
 
 export const Sidebar = () => {
     const isAuth = useSelector(checkIsAuth);
@@ -16,6 +17,7 @@ export const Sidebar = () => {
     const logoutHandler = () => {
         dispatch(logout());
         dispatch(clearCart());
+        dispatch(clearFavorites());
         window.localStorage.removeItem("token");
         toast("Вы вышли из системы.");
 

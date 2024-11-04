@@ -1,10 +1,23 @@
-import React from "react";
+// src/pages/Favorites.js
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 import Card from "../components/Card";
-import AppContext from "../context";
+import { getFavorites, removeFromFavorites } from "../redux/features/favorites/favoritesSlice";
+import { selectUserId } from "../redux/features/auth/authSlice";
+import { addToCart } from "../redux/features/cart/cartSlice";
 
 function Favorites() {
-    const { favorites, onAddToFavorite, onAddToCart } = React.useContext(AppContext);
+    const dispatch = useDispatch();
+    const userId = useSelector(selectUserId);
+    const { favorites } = useSelector((state) => state.favorites);
+    const { cart } = useSelector((state) => state.cart);
+
+    useEffect(() => {
+        if (userId) {
+            dispatch(getFavorites(userId));
+        }
+    }, [dispatch, userId]);
 
     return (
         <div className="content p-40 all-pages favorites-page">
@@ -13,13 +26,17 @@ function Favorites() {
             </div>
 
             <div className="d-flex flex-wrap">
-                {favorites.map((item, index) => (
+                {Array.isArray(favorites) && favorites.map((item) => (
                     <Card
-                        key={index}
-                        favorited={true}
-                        onFavorite={(obj) => onAddToFavorite(obj)}
-                        onPlus={(obj) => onAddToCart(obj)}
-                        {...item}
+                        key={item._id}
+                        id={item._id}
+                        title={item.title}
+                        imageUrl={item.imageUrl}
+                        price={item.price}
+                        isItemFavorited={true}
+                        onFavorite={() => dispatch(removeFromFavorites({ userId, productId: item._id }))}
+                        onPlus={() => dispatch(addToCart({ userId, productId: item._id }))}
+                        isItemAdded={cart.some((cartItem) => cartItem.product._id === item._id)}
                     />
                 ))}
             </div>

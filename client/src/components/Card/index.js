@@ -1,9 +1,8 @@
+// src/components/Card.js
 import React from "react";
 import { useSelector } from "react-redux";
 
 import ContentLoader from "react-content-loader";
-
-import AppContext from "../../context";
 
 import styles from "./Card.module.scss";
 
@@ -14,21 +13,17 @@ function Card({
     price,
     onFavorite,
     onPlus,
-    favorited = false,
     isItemAdded,
+    isItemFavorited,
 }) {
     const { loading } = useSelector((state) => state.products);
-    const { isItemFavorited } = React.useContext(AppContext);
-    const [isFavorite, setIsFavorite] = React.useState(favorited);
-    const obj = { id, parentId: id, title, imageUrl, price };
 
     const onClickPlus = () => {
-        onPlus(obj);
+        onPlus({ id, title, imageUrl, price });
     };
 
     const onClickFavorite = () => {
-        onFavorite(obj);
-        setIsFavorite(!isFavorite);
+        onFavorite(id);
     };
 
     return (
@@ -64,21 +59,19 @@ function Card({
                 </ContentLoader>
             ) : (
                 <>
-                    {onFavorite && (
-                        <div
-                            className={styles.favorite}
-                            onClick={onClickFavorite}
-                        >
-                            <img
-                                src={
-                                    isItemFavorited(id)
-                                        ? "./img/liked.svg"
-                                        : "./img/unliked.svg"
-                                }
-                                alt="Unliked"
-                            />
-                        </div>
-                    )}
+                    <div
+                        className={styles.favorite}
+                        onClick={onClickFavorite}
+                    >
+                        <img
+                            src={
+                                isItemFavorited
+                                    ? "./img/liked.svg"
+                                    : "./img/unliked.svg"
+                            }
+                            alt="Unliked"
+                        />
+                    </div>
                     <img
                         width="100%"
                         height={135}
@@ -91,18 +84,16 @@ function Card({
                             <span>Цена:</span>
                             <b>{price} руб.</b>
                         </div>
-                        {onPlus && (
-                            <img
-                                className={styles.plus}
-                                onClick={onClickPlus}
-                                src={
-                                    isItemAdded
-                                        ? "./img/btn-checked.svg"
-                                        : "./img/btn-plus.svg"
-                                }
-                                alt="Plus"
-                            />
-                        )}
+                        <img
+                            className={styles.plus}
+                            onClick={onClickPlus}
+                            src={
+                                isItemAdded
+                                    ? "./img/btn-checked.svg"
+                                    : "./img/btn-plus.svg"
+                            }
+                            alt="Plus"
+                        />
                     </div>
                 </>
             )}

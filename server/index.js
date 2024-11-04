@@ -26,7 +26,7 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/cart", cartRoute);
 app.use("/api/purchase", purchaseRoute);
-app.use("/api/favorite", favoriteRoute);
+app.use("/api/favorites", favoriteRoute);
 app.use("/api/products", productRoutes);
 
 async function start() {
