@@ -1,0 +1,414 @@
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    background-color: #161d25;
+}
+
+* {
+    font-family: "Inter", sans-serif;
+}
+
+.wrapper {
+    background: #161d25;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.04);
+    border-radius: 20px;
+    // max-width: 1080px;
+    // margin: 50px auto;
+}
+
+.layout-position {
+    // fixed test
+    display: flex;
+    margin-top: 80px; /* Высота Header */
+    // fixed test
+
+    // display: grid;
+    // grid-template-columns: 1fr 4fr;
+}
+
+header {
+    // fixed test
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    z-index: 900;
+    // fixed test
+
+    background-color: #161d25;
+    padding: 20px 25px;
+    color: rgb(225, 225, 225);
+    img {
+        margin-right: 10px;
+    }
+    h3,
+    p {
+        margin: 0;
+    }
+}
+
+.sidebar {
+    // fixed test
+    position: fixed;
+    top: 80px; /* Высота Header */
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    overflow-y: auto;
+    // fixed test
+
+    background-color: #161d25;
+    color: rgb(225, 225, 225);
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; // Исправлено с start на flex-start
+    padding: 20px 0px 20px 25px;
+
+    ul {
+        li {
+            margin: 20px 0px 20px 10px;
+        }
+    }
+}
+
+.layout-main {
+    // fixed test
+    margin-left: 300px; /* Ширина Sidebar */
+    flex-grow: 1;
+    // fixed test
+}
+
+.sidebar-list {
+    flex: 1;
+}
+
+.sidebar-btns {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    max-width: max-content;
+}
+
+.all-pages {
+    border-top-left-radius: 15px; /* Закругление левого верхнего угла */
+    border-bottom-left-radius: 15px; /* Закругление левого нижнего угла */
+    background-color: white;
+    min-height: calc(100vh - 80px);
+    // min-height: 100vh;
+}
+
+// logo test
+/* === removing default button style ===*/
+.logo__btn {
+    margin: 0;
+    height: auto;
+    background: transparent;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+/* button styling */
+.logo__btn {
+    --border-right: 6px;
+    --text-stroke-color: rgb(225, 225, 225);
+    --animation-color: #37ff8b;
+    --fs-size: 2em;
+    letter-spacing: 3px;
+    text-decoration: none;
+    font-size: var(--fs-size);
+    font-weight: 500;
+    position: relative;
+    text-transform: uppercase;
+    color: transparent;
+    color: var(--text-stroke-color);
+}
+/* this is the text, when you hover on button */
+.logo__text-hover {
+    position: absolute;
+    box-sizing: border-box;
+    content: attr(data-text);
+    color: var(--animation-color);
+    width: 0%;
+    inset: 0;
+    border-right: var(--border-right) solid var(--animation-color);
+    overflow: hidden;
+    transition: 0.5s;
+    -webkit-text-stroke: 1px var(--animation-color);
+}
+/* hover */
+.logo__btn:hover .logo__text-hover {
+    width: 100%;
+    filter: drop-shadow(0 0 23px var(--animation-color));
+}
+// logo test
+
+// REGISTER FORM
+
+.login-page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    h2 {
+        margin: 0;
+        text-align: center;
+    }
+    /* From Uiverse.io by bociKond */
+    .form {
+        --bg-light: #efefef;
+        --bg-dark: #707070;
+        --clr: #58bc82;
+        --clr-alpha: #9c9c9c60;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .form .input-span {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    .form input[type="text"],
+    .form input[type="password"] {
+        border-radius: 0.5rem;
+        padding: 1rem 0.75rem;
+        width: 100%;
+        border: none;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background-color: var(--clr-alpha);
+        outline: 2px solid var(--bg-dark);
+    }
+
+    .form input[type="email"]:focus,
+    .form input[type="password"]:focus {
+        outline: 2px solid var(--clr);
+    }
+
+    .label {
+        align-self: flex-start;
+        color: var(--clr);
+        font-weight: 600;
+    }
+
+    .form .submit {
+        padding: 1rem 0.75rem;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        border-radius: 3rem;
+        background-color: var(--bg-dark);
+        color: var(--bg-light);
+        border: none;
+        cursor: pointer;
+        transition: all 300ms;
+        font-weight: 600;
+        font-size: 0.9rem;
+    }
+
+    .form .submit:hover {
+        background-color: var(--clr);
+        color: var(--bg-dark);
+    }
+
+    .span {
+        text-decoration: none;
+        color: var(--bg-dark);
+    }
+
+    .span a {
+        color: var(--clr);
+    }
+}
+
+// REGISTER FORM
+
+.content {
+    h1 {
+        margin: 0;
+    }
+}
+
+.cartEmpty {
+    text-align: center;
+
+    p {
+        width: 280px;
+        line-height: 24px;
+    }
+
+    .greenButton {
+        width: 245px;
+        margin-top: 20px;
+
+        &:hover {
+            img {
+                transform: rotate(180deg) translateX(3px);
+            }
+        }
+
+        img {
+            position: relative;
+            top: 1px;
+            transform: rotate(180deg);
+            margin-right: 15px;
+            transition: transform 0.15s ease-in-out;
+        }
+    }
+}
+
+.card-render {
+    justify-content: space-evenly;
+}
+
+.search-block {
+    border: 1px solid #f3f3f3;
+    border-radius: 10px;
+    padding: 0 15px;
+    position: relative;
+
+    .clear {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 13px;
+        right: 15px;
+    }
+
+    input {
+        border: 0;
+        padding: 13px;
+        font-size: 16px;
+        width: 200px;
+    }
+}
+
+.cartTotalBlock {
+    ul {
+        // display: block;
+        margin-bottom: 40px !important;
+
+        li {
+            display: flex;
+            align-items: flex-end;
+            margin-bottom: 20px;
+
+            div {
+                flex: 1;
+                height: 1px;
+                border-bottom: 1px dashed #dfdfdf;
+                position: relative;
+                top: -4px;
+                margin: 0 7px;
+            }
+        }
+    }
+
+    .greenButton {
+        position: relative;
+
+        &:disabled {
+            animation: button-loading 0.6s ease-in-out infinite;
+        }
+
+        &:hover {
+            img {
+                transform: translateX(5px);
+            }
+        }
+
+        img {
+            position: absolute;
+            right: 30px;
+            top: 20px;
+            transition: transform 0.15s ease-in-out;
+        }
+    }
+}
+
+.greenButton {
+    width: 100%;
+    height: 55px;
+    background: #9dd558;
+    border-radius: 18px;
+    border: 0;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.1s ease-in-out;
+
+    &:disabled {
+        background-color: #bebebe !important;
+        cursor: default;
+    }
+
+    &:hover {
+        background: lighten(#9dd558, 5%);
+    }
+
+    &:active {
+        background: darken(#9dd558, 5%);
+    }
+}
+
+.cartItem {
+    border: 1px solid #f3f3f3;
+    border-radius: 20px;
+    overflow: hidden;
+    padding: 20px;
+
+    .cartItemImg {
+        height: 70px;
+        width: 70px;
+        background-size: contain;
+        background-position: 0 -3px;
+        background-repeat: no-repeat;
+        margin-right: 20px;
+    }
+
+    p {
+        font-size: 16px;
+        margin: 0;
+    }
+
+    b {
+        font-size: 14px;
+    }
+
+    .removeBtn {
+        opacity: 0.5;
+        cursor: pointer;
+        transition: opacity 0.15s ease-in-out;
+
+        &:hover {
+            opacity: 1;
+        }
+    }
+}
+
+@keyframes button-loading {
+    0% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.7;
+    }
+    100% {
+        opacity: 1;
+    }
+}
