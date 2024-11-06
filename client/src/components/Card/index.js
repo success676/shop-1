@@ -1,4 +1,3 @@
-// src/components/Card.js
 import React from "react";
 import { useSelector } from "react-redux";
 
@@ -15,20 +14,25 @@ function Card({
     onPlus,
     isItemAdded,
     isItemFavorited,
+    loading,
 }) {
-    const { loading } = useSelector((state) => state.products);
+    const { loading: productsLoading } = useSelector((state) => state.products);
 
     const onClickPlus = () => {
-        onPlus({ id, title, imageUrl, price });
+        if (!loading) {
+            onPlus({ id, title, imageUrl, price });
+        }
     };
 
     const onClickFavorite = () => {
-        onFavorite(id);
+        if (!loading) {
+            onFavorite(id);
+        }
     };
 
     return (
         <div className={styles.card}>
-            {loading ? (
+            {productsLoading ? (
                 <ContentLoader
                     speed={2}
                     width={160}

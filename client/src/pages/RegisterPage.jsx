@@ -36,7 +36,7 @@ export const RegisterPage = () => {
                 <h2>Регистрация:</h2>
                 <span className="input-span">
                     <label className="label">
-                        Username:
+                    Имя пользователя:
                     </label>
                     <input
                         value={username}
@@ -48,7 +48,7 @@ export const RegisterPage = () => {
                 </span>
                 <span className="input-span">
                     <label className="label">
-                        Password:
+                        Пароль:
                     </label>
                     <input
                         value={password}

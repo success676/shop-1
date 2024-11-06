@@ -41,14 +41,14 @@ export const LoginPage = () => {
                 <h2>Авторизация:</h2>
                 <span className="input-span">
                     <label className="label">
-                    Username:
+                    Имя пользователя:
                     </label>
                     <input value={username}
                     onChange={(e) => setUsername(e.target.value)} type="text" name="email" id="email" />
                 </span>
                 <span className="input-span">
                     <label className="label">
-                    Password:
+                    Пароль:
                     </label>
                     <input value={password}
                     onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" />

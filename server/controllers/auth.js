@@ -1,6 +1,8 @@
 import User from "../models/User.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import Cart from "../models/Cart.js";
+import Favorites from "../models/Favorites.js";
 
 // Register user
 export const register = async (req, res) => {
@@ -25,6 +27,17 @@ export const register = async (req, res) => {
             expiresIn: "30d",
         });
 
+        await newUser.save();
+
+        // Создание пустой корзины и избранного для нового пользователя
+        const cart = new Cart({ user: newUser._id, products: [] });
+        const favorites = new Favorites({ user: newUser._id, products: [] });
+        await cart.save();
+        await favorites.save();
+
+        // Обновление пользователя с ID корзины и избранного
+        newUser.cart = cart._id;
+        newUser.favorites = favorites._id;
         await newUser.save();
 
         res.json({
