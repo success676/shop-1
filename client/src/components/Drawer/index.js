@@ -1,4 +1,3 @@
-// src/components/Drawer.js
 import React, { useEffect } from "react";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";

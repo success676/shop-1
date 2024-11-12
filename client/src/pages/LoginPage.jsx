@@ -41,7 +41,7 @@ export const LoginPage = () => {
                 <h2>Авторизация:</h2>
                 <span className="input-span">
                     <label className="label">
-                    Имя пользователя:
+                    Логин:
                     </label>
                     <input value={username}
                     onChange={(e) => setUsername(e.target.value)} type="text" name="email" id="email" />

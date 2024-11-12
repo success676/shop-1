@@ -9,7 +9,9 @@ import {
     MdShoppingCart,
     MdFavorite,
     MdCreditScore,
+    MdOutlineStorefront,
 } from "react-icons/md";
+import { MdLogin } from "react-icons/md";
 
 function Header(props) {
     const { setCartOpened } = React.useContext(AppContext);
@@ -21,14 +23,24 @@ function Header(props) {
 
     return (
         <header className="d-flex justify-between align-center">
-            <Link to="/">
-                <button className="logo__btn" data-text="Awesome">
-                    <span className="logo__text">&nbsp;Cailin Kelai&nbsp;</span>
-                    <span aria-hidden="true" className="logo__text-hover">
-                        &nbsp;Cailin&nbsp;Kelai&nbsp;
-                    </span>
-                </button>
-            </Link>
+            <div className="d-flex align-center">
+                <Link to="/home">
+                    <button className="logo__btn" data-text="Awesome">
+                        <span className="logo__text">
+                            &nbsp;Cailin Kelai&nbsp;
+                        </span>
+                        <span aria-hidden="true" className="logo__text-hover">
+                            &nbsp;Cailin&nbsp;Kelai&nbsp;
+                        </span>
+                    </button>
+                </Link>
+                <Link className="ml-40" to="/main">
+                    <div className="cu-p d-flex align-center">
+                        <MdOutlineStorefront className="mr-10" size={25} />
+                        <p className="">На шопинг!</p>
+                    </div>
+                </Link>
+            </div>
             {isAuth ? (
                 <ul className="d-flex align-center">
                     {user && user.admin && (
@@ -67,7 +79,16 @@ function Header(props) {
                         </li>
                     </Link>
                 </ul>
-            ) : null}
+            ) : (
+                <>
+                    <Link to="/login">
+                        <div className="d-flex align-center">
+                            <MdLogin className="mr-10" size={25} />
+                            <span>Войти</span>
+                        </div>
+                    </Link>
+                </>
+            )}
         </header>
     );
 }

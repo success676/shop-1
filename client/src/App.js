@@ -1,5 +1,5 @@
 import React from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Drawer from "./components/Drawer";
 import AppContext from "./context";
 import { useDispatch } from "react-redux";
@@ -9,9 +9,11 @@ import { getMe } from "./redux/features/auth/authSlice.js";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import { Layout } from "./components/Layout";
+import { HomeLayout } from "./components/Layouts/HomeLayout.jsx";
+import { MainLayout } from "./components/Layouts/MainLayout.jsx";
 
-import Home from "./pages/Home";
+import Main from "./pages/Main.jsx";
+import {Home} from "./pages/Home.jsx";
 import Favorites from "./pages/Favorites";
 import Orders from "./pages/Orders";
 import { LoginPage } from "./pages/LoginPage";
@@ -43,27 +45,72 @@ function App() {
                     opened={cartOpened}
                 />
 
-                <Layout>
-                    <Routes>
-                        <Route
-                            path="/"
-                            element={
-                                <Home
+                <Routes>
+                    <Route
+                        path="/home"
+                        element={
+                            <HomeLayout>
+                                <Home />
+                            </HomeLayout>
+                        }
+                    />
+                    <Route
+                        path="/main"
+                        element={
+                            <MainLayout>
+                                <Main
                                     searchValue={searchValue}
                                     setSearchValue={setSearchValue}
                                     onChangeSearchInput={onChangeSearchInput}
                                 />
-                            }
-                        />
-                        <Route path="/favorites" element={<Favorites />} />
-                        <Route path="/orders" element={<Orders />} />
-                        <Route path="/login" element={<LoginPage />} />
-                        <Route path="/register" element={<RegisterPage />} />
-                        <Route path="/profile" element={<Profile />} />
-                    </Routes>
+                            </MainLayout>
+                        }
+                    />
+                    <Route
+                        path="/favorites"
+                        element={
+                            <MainLayout>
+                                <Favorites />
+                            </MainLayout>
+                        }
+                    />
+                    <Route
+                        path="/orders"
+                        element={
+                            <MainLayout>
+                                <Orders />
+                            </MainLayout>
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            <MainLayout>
+                                <LoginPage />
+                            </MainLayout>
+                        }
+                    />
+                    <Route
+                        path="/register"
+                        element={
+                            <MainLayout>
+                                <RegisterPage />
+                            </MainLayout>
+                        }
+                    />
+                    <Route
+                        path="/profile"
+                        element={
+                            <MainLayout>
+                                <Profile />
+                            </MainLayout>
+                        }
+                    />
 
-                    <ToastContainer position="bottom-right" />
-                </Layout>
+                    {/* Перенаправление с корневого пути на /home */}
+                    <Route path="/" element={<Navigate to="/home" />} />
+                </Routes>
+                <ToastContainer position="bottom-right" />
             </div>
         </AppContext.Provider>
     );

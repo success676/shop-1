@@ -35,9 +35,7 @@ export const RegisterPage = () => {
             <form onSubmit={(e) => e.preventDefault()} className="form">
                 <h2>Регистрация:</h2>
                 <span className="input-span">
-                    <label className="label">
-                    Имя пользователя:
-                    </label>
+                    <label className="label">Логин:</label>
                     <input
                         value={username}
                         onChange={(e) => setUsername(e.target.value)}
@@ -47,9 +45,7 @@ export const RegisterPage = () => {
                     />
                 </span>
                 <span className="input-span">
-                    <label className="label">
-                        Пароль:
-                    </label>
+                    <label className="label">Пароль:</label>
                     <input
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}

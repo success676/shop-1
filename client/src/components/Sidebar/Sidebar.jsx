@@ -1,9 +1,9 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import { toast } from "react-toastify";
-import { MdLogin, MdLogout } from "react-icons/md";
+import { MdLogout } from "react-icons/md";
 
 import { checkIsAuth, logout } from "../../redux/features/auth/authSlice";
 import { clearCart } from "../../redux/features/cart/cartSlice";
@@ -44,14 +44,7 @@ export const Sidebar = () => {
                         <MdLogout size={25} />
                         <span onClick={logoutHandler}>Выйти</span>
                     </>
-                ) : (
-                    <>
-                        <MdLogin size={25} />
-                        <Link to={"/login"}>
-                            <span>Войти</span>
-                        </Link>
-                    </>
-                )}
+                ) : null}
             </div>
         </aside>
     );
