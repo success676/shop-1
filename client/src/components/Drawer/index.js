@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeCartItem, getCart } from "../../redux/features/cart/cartSlice";
+import {
+    createPurchase,
+    getPurchases,
+} from "../../redux/features/purchase/purchaseSlice";
+import {
+    removeCartItem,
+    getCart,
+    clearCart,
+} from "../../redux/features/cart/cartSlice";
 import { selectUserId } from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
-
 import Info from "../Info";
-
 import styles from "./Drawer.module.scss";
 
-const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-function Drawer({ onClose, opened }) {
+const Drawer = ({ onClose, opened }) => {
     const dispatch = useDispatch();
     const { cart, totalPrice, totalTax } = useSelector((state) => state.cart);
     const userId = useSelector(selectUserId);
@@ -30,37 +33,22 @@ function Drawer({ onClose, opened }) {
         }
     }, [dispatch, userId]);
 
-    const [orderId, setOrderId] = React.useState(null);
-    const [isOrderComplete, setIsOrderComplete] = React.useState(false);
-    const [isLoading, setIsLoading] = React.useState(false);
+    const [isOrderComplete, setIsOrderComplete] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
 
-    // const onClickOrder = async () => {
-    //     try {
-    //         setIsLoading(true);
-    //         const { data } = await axios.post(
-    //             "https://660bf45c3a0766e85dbd0524.mockapi.io/orders",
-    //             {
-    //                 items: cartItems,
-    //             }
-    //         );
-    //         setOrderId(data.id);
-    //         setIsOrderComplete(true);
-    //         setCartItems([]);
-
-    //         for (let i = 0; i < cartItems.length; i++) {
-    //             const item = cartItems[i];
-    //             await axios.delete(
-    //                 "https://66091c950f324a9a2882c118.mockapi.io/cart/" +
-    //                     item.id
-    //             );
-    //             await delay(1000);
-    //         }
-    //     } catch (error) {
-    //         alert("Ошибка при создании заказа");
-    //         console.error(error);
-    //     }
-    //     setIsLoading(false);
-    // };
+    const onClickOrder = async () => {
+        try {
+            setIsLoading(true);
+            await dispatch(createPurchase(userId)).unwrap();
+            setIsOrderComplete(true);
+            setIsLoading(false);
+            dispatch(clearCart()); // Очистка корзины на клиенте
+            dispatch(getPurchases(userId)); // Обновление данных заказов
+        } catch (error) {
+            toast.error("Ошибка при создании заказа");
+            setIsLoading(false);
+        }
+    };
 
     return (
         <div
@@ -127,7 +115,7 @@ function Drawer({ onClose, opened }) {
                             </ul>
                             <button
                                 disabled={isLoading}
-                                // onClick={onClickOrder}
+                                onClick={onClickOrder}
                                 className="greenButton"
                             >
                                 Оформить заказ{" "}
@@ -144,7 +132,7 @@ function Drawer({ onClose, opened }) {
                         }
                         description={
                             isOrderComplete
-                                ? `Ваш заказ #${orderId} скоро будет передан курьерской доставке`
+                                ? "Ваш заказ скоро будет передан курьерской доставке"
                                 : "Добавьте хотя бы один товар, чтобы сделать заказ."
                         }
                         image={
@@ -157,6 +145,6 @@ function Drawer({ onClose, opened }) {
             </div>
         </div>
     );
-}
+};
 
 export default Drawer;

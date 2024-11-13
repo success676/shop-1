@@ -15,6 +15,7 @@ function Card({
     isItemAdded,
     isItemFavorited,
     loading,
+    isOrderPage,
 }) {
     const { loading: productsLoading } = useSelector((state) => state.products);
 
@@ -63,24 +64,27 @@ function Card({
                 </ContentLoader>
             ) : (
                 <>
-                    <div
-                        className={styles.favorite}
-                        onClick={onClickFavorite}
-                    >
-                        <img
-                            src={
-                                isItemFavorited
-                                    ? "./img/liked.svg"
-                                    : "./img/unliked.svg"
-                            }
-                            alt="Unliked"
-                        />
-                    </div>
+                    {!isOrderPage && (
+                        <div
+                            className={styles.favorite}
+                            onClick={onClickFavorite}
+                        >
+                            <img
+                                src={
+                                    isItemFavorited
+                                        ? "./img/liked.svg"
+                                        : "./img/unliked.svg"
+                                }
+                                alt="Unliked"
+                            />
+                        </div>
+                    )}
+
                     <img
                         width="100%"
                         height={135}
                         src={imageUrl}
-                        alt="Sneakers"
+                        alt="Product"
                     />
                     <h5>{title}</h5>
                     <div className="d-flex justify-between align-center">
@@ -88,16 +92,18 @@ function Card({
                             <span>Цена:</span>
                             <b>{price} руб.</b>
                         </div>
-                        <img
-                            className={styles.plus}
-                            onClick={onClickPlus}
-                            src={
-                                isItemAdded
-                                    ? "./img/btn-checked.svg"
-                                    : "./img/btn-plus.svg"
-                            }
-                            alt="Plus"
-                        />
+                        {!isOrderPage && (
+                            <img
+                                className={styles.plus}
+                                onClick={onClickPlus}
+                                src={
+                                    isItemAdded
+                                        ? "./img/btn-checked.svg"
+                                        : "./img/btn-plus.svg"
+                                }
+                                alt="Plus"
+                            />
+                        )}
                     </div>
                 </>
             )}

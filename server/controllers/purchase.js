@@ -54,7 +54,7 @@ export const createPurchase = async (req, res) => {
     }
 };
 
-export const getPurchase = async (req, res) => {
+export const getPurchases = async (req, res) => {
     try {
         const { userId } = req.params;
 

@@ -4,7 +4,6 @@ import axios from "../../../utils/axios";
 const initialState = {
     purchases: [],
     loading: false,
-    error: null,
 };
 
 // Асинхронное действие для создания покупки
@@ -12,7 +11,7 @@ export const createPurchase = createAsyncThunk(
     "purchases/createPurchase",
     async (userId, thunkAPI) => {
         try {
-            const response = await axios.post("/api/purchases", { userId });
+            const response = await axios.post("/purchases/create", { userId });
             return response.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
@@ -25,13 +24,17 @@ export const getPurchases = createAsyncThunk(
     "purchases/getPurchases",
     async (userId, thunkAPI) => {
         try {
-            const response = await axios.get(`/api/purchases/${userId}`);
+            const response = await axios.get(`/purchases/${userId}`);
             return response.data;
         } catch (error) {
             return thunkAPI.rejectWithValue(error.response.data);
         }
     }
 );
+
+export const clearPurchases = createAsyncThunk("/purchases/clearPurchases", async () => {
+    return {};
+});
 
 const purchaseSlice = createSlice({
     name: "purchases",
@@ -42,28 +45,35 @@ const purchaseSlice = createSlice({
 
             .addCase(createPurchase.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(createPurchase.fulfilled, (state, action) => {
                 state.loading = false;
                 state.purchases.push(action.payload);
             })
-            .addCase(createPurchase.rejected, (state, action) => {
+            .addCase(createPurchase.rejected, (state) => {
                 state.loading = false;
-                state.error = action.payload.message;
             })
 
             .addCase(getPurchases.pending, (state) => {
                 state.loading = true;
-                state.error = null;
             })
             .addCase(getPurchases.fulfilled, (state, action) => {
                 state.loading = false;
                 state.purchases = action.payload;
             })
-            .addCase(getPurchases.rejected, (state, action) => {
+            .addCase(getPurchases.rejected, (state) => {
                 state.loading = false;
-                state.error = action.payload.message;
+            })
+
+            .addCase(clearPurchases.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(clearPurchases.fulfilled, (state) => {
+                state.loading = false;
+                state.purchases = [];
+            })
+            .addCase(clearPurchases.rejected, (state) => {
+                state.loading = false;
             });
     },
 });
