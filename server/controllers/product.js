@@ -2,7 +2,7 @@ import Product from "../models/Product.js";
 
 // Создание нового продукта
 export const createProduct = async (req, res) => {
-    const { title, price, imageUrl, category } = req.body;
+    const { title, price, imageUrl, category, subcategory, gender } = req.body;
 
     try {
         const newProduct = new Product({
@@ -10,6 +10,8 @@ export const createProduct = async (req, res) => {
             price,
             imageUrl,
             category,
+            subcategory,
+            gender,
         });
 
         await newProduct.save();
@@ -19,10 +21,19 @@ export const createProduct = async (req, res) => {
     }
 };
 
-// Получение всех продуктов
+// Получение всех продуктов с фильтрами
 export const getAllProducts = async (req, res) => {
+    const { category, subcategory, gender, price } = req.query;
+
+    const filter = {};
+
+    if (category) filter.category = category;
+    if (subcategory) filter.subcategory = subcategory;
+    if (gender) filter.gender = gender;
+    if (price) filter.price = { $lte: price }; // Фильтр по цене (например, меньше или равно)
+
     try {
-        const products = await Product.find();
+        const products = await Product.find(filter);
         res.status(200).json(products);
     } catch (error) {
         res.status(500).json({ message: error.message });
@@ -49,12 +60,12 @@ export const getProductById = async (req, res) => {
 // Обновление продукта по ID
 export const updateProduct = async (req, res) => {
     const { productId } = req.params;
-    const { title, price, imageUrl, category } = req.body;
+    const { title, price, imageUrl, category, subcategory, gender } = req.body;
 
     try {
         const updatedProduct = await Product.findByIdAndUpdate(
             productId,
-            { title, price, imageUrl, category },
+            { title, price, imageUrl, category, subcategory, gender },
             { new: true }
         );
 

@@ -8,9 +8,9 @@ const initialState = {
 
 export const getAllProducts = createAsyncThunk(
     "products/getAllProducts",
-    async () => {
+    async (filters) => {
         try {
-            const { data } = await axios.get("/products");
+            const { data } = await axios.get("/products", { params: filters });
             return data;
         } catch (error) {
             console.log(error);
@@ -24,7 +24,6 @@ const productSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-
             // Get All Products
             .addCase(getAllProducts.pending, (state) => {
                 state.loading = true;

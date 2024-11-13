@@ -1,5 +1,9 @@
 import React from "react";
 
 export const Footer = () => {
-    return <footer>Footer</footer>;
+    return (
+        <footer className="footer">
+            <p>&copy; 2024 Cailin Kelai. Все права защищены.</p>
+        </footer>
+    );
 };
