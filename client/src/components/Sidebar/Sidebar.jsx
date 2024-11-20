@@ -1,3 +1,4 @@
+// src/components/Sidebar/Sidebar.js
 import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -15,6 +16,7 @@ export const Sidebar = ({ onFilterChange, onResetFilters }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const location = useLocation();
+    const { categories } = useSelector((state) => state.categories);
 
     const [filters, setFilters] = useState({
         gender: "",
@@ -131,117 +133,23 @@ export const Sidebar = ({ onFilterChange, onResetFilters }) => {
                                 Все категории
                             </label>
                         </li>
-                        <li>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="category"
-                                    value="t-shirts"
-                                    onChange={handleFilterChange}
-                                    checked={filters.category === "t-shirts"}
-                                    disabled={!isMainPage}
-                                />
-                                Футболки
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="category"
-                                    value="shorts"
-                                    onChange={handleFilterChange}
-                                    checked={filters.category === "shorts"}
-                                    disabled={!isMainPage}
-                                />
-                                Шорты
-                            </label>
-                        </li>
-                        {/* <li>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="category"
-                                    value="pants"
-                                    onChange={handleFilterChange}
-                                    checked={filters.category === "pants"}
-                                    disabled={!isMainPage}
-                                />
-                                Брюки
-                            </label>
-                        </li> */}
-                        <li>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="category"
-                                    value="shoes"
-                                    onChange={handleFilterChange}
-                                    checked={filters.category === "shoes"}
-                                    disabled={!isMainPage}
-                                />
-                                Обувь
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="category"
-                                    value="underwear"
-                                    onChange={handleFilterChange}
-                                    checked={filters.category === "underwear"}
-                                    disabled={!isMainPage}
-                                />
-                                Нижнее белье
-                            </label>
-                        </li>
+                        {categories.map((category) => (
+                            <li key={category._id}>
+                                <label>
+                                    <input
+                                        type="radio"
+                                        name="category"
+                                        value={category._id}
+                                        onChange={handleFilterChange}
+                                        checked={filters.category === category._id}
+                                        disabled={!isMainPage}
+                                    />
+                                    {category.name}
+                                </label>
+                            </li>
+                        ))}
                     </ul>
                 </div>
-                {/* <div className="sidebar-list">
-                    Подкатегории:
-                    <ul>
-                        <li>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="subcategory"
-                                    value=""
-                                    onChange={handleFilterChange}
-                                    checked={filters.subcategory === ""}
-                                    disabled={!isMainPage}
-                                />
-                                Все
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="subcategory"
-                                    value="male"
-                                    onChange={handleFilterChange}
-                                    checked={filters.subcategory === "male"}
-                                    disabled={!isMainPage}
-                                />
-                                Тест1
-                            </label>
-                        </li>
-                        <li>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="subcategory"
-                                    value="female"
-                                    onChange={handleFilterChange}
-                                    checked={filters.subcategory === "female"}
-                                    disabled={!isMainPage}
-                                />
-                                Тест2
-                            </label>
-                        </li>
-                    </ul>
-                </div> */}
             </div>
             <div className="sidebar-btns">
                 {isAuth ? (

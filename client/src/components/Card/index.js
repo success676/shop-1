@@ -1,8 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-
 import ContentLoader from "react-content-loader";
-
 import styles from "./Card.module.scss";
 
 function Card({
@@ -16,6 +14,7 @@ function Card({
     isItemFavorited,
     loading,
     isOrderPage,
+    onClick, // Добавляем обработчик нажатия
 }) {
     const { loading: productsLoading } = useSelector((state) => state.products);
 
@@ -32,7 +31,9 @@ function Card({
     };
 
     return (
-        <div className={styles.card}>
+        <div className={styles.card} onClick={onClick}>
+            {" "}
+            {/* Добавляем обработчик нажатия */}
             {productsLoading ? (
                 <ContentLoader
                     speed={2}
@@ -67,7 +68,10 @@ function Card({
                     {!isOrderPage && (
                         <div
                             className={styles.favorite}
-                            onClick={onClickFavorite}
+                            onClick={(e) => {
+                                e.stopPropagation();
+                                onClickFavorite();
+                            }}
                         >
                             <img
                                 src={
@@ -95,7 +99,10 @@ function Card({
                         {!isOrderPage && (
                             <img
                                 className={styles.plus}
-                                onClick={onClickPlus}
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    onClickPlus();
+                                }}
                                 src={
                                     isItemAdded
                                         ? "./img/btn-checked.svg"

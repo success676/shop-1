@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
     createPurchase,
@@ -42,13 +42,43 @@ const Drawer = ({ onClose, opened }) => {
             await dispatch(createPurchase(userId)).unwrap();
             setIsOrderComplete(true);
             setIsLoading(false);
-            dispatch(clearCart()); // Очистка корзины на клиенте
-            dispatch(getPurchases(userId)); // Обновление данных заказов
+            dispatch(clearCart());
+            dispatch(getPurchases(userId));
         } catch (error) {
             toast.error("Ошибка при создании заказа");
             setIsLoading(false);
         }
     };
+
+    const handleClickOutside = useCallback(
+        (event) => {
+            if (event.target.classList.contains(styles.overlay)) {
+                onClose();
+            }
+        },
+        [onClose]
+    );
+
+    const handleEscapeKey = useCallback(
+        (event) => {
+            if (event.key === "Escape") {
+                onClose();
+            }
+        },
+        [onClose]
+    );
+
+    useEffect(() => {
+        if (opened) {
+            document.addEventListener("click", handleClickOutside);
+            document.addEventListener("keydown", handleEscapeKey);
+        }
+
+        return () => {
+            document.removeEventListener("click", handleClickOutside);
+            document.removeEventListener("keydown", handleEscapeKey);
+        };
+    }, [opened, handleClickOutside, handleEscapeKey]);
 
     return (
         <div

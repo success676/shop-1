@@ -11,9 +11,9 @@ const UserSchema = new mongoose.Schema(
             type: String,
             required: true,
         },
-        admin: {
-            type: Boolean,
-            default: false,
+        role: {
+            type: String,
+            default: "user",
         },
         cart: {
             type: mongoose.Schema.Types.ObjectId,

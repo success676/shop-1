@@ -1,19 +1,18 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import Drawer from "./components/Drawer";
 import AppContext from "./context";
 import { useDispatch } from "react-redux";
-import { useEffect } from "react";
 import { getMe } from "./redux/features/auth/authSlice.js";
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import ScrollToTop from "./components/ScrollToTop.js";
 
 import { HomeLayout } from "./components/Layouts/HomeLayout.jsx";
 import { MainLayout } from "./components/Layouts/MainLayout.jsx";
 
 import Main from "./pages/Main.jsx";
-import {Home} from "./pages/Home.jsx";
+import { Home } from "./pages/Home.jsx";
 import Favorites from "./pages/Favorites";
 import Orders from "./pages/Orders";
 import { LoginPage } from "./pages/LoginPage";
@@ -26,8 +25,8 @@ function App() {
         dispatch(getMe());
     }, [dispatch]);
 
-    const [searchValue, setSearchValue] = React.useState("");
-    const [cartOpened, setCartOpened] = React.useState(false);
+    const [searchValue, setSearchValue] = useState("");
+    const [cartOpened, setCartOpened] = useState(false);
 
     const onChangeSearchInput = (event) => {
         setSearchValue(event.target.value);
@@ -40,11 +39,11 @@ function App() {
             }}
         >
             <div className="wrapper clear">
+                <ScrollToTop />
                 <Drawer
                     onClose={() => setCartOpened(false)}
                     opened={cartOpened}
                 />
-
                 <Routes>
                     <Route
                         path="/home"
@@ -107,7 +106,6 @@ function App() {
                         }
                     />
 
-                    {/* Перенаправление с корневого пути на /home */}
                     <Route path="/" element={<Navigate to="/home" />} />
                 </Routes>
                 <ToastContainer position="bottom-right" />

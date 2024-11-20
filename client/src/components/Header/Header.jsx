@@ -43,7 +43,7 @@ function Header(props) {
             </div>
             {isAuth ? (
                 <ul className="d-flex align-center">
-                    {user && user.admin && (
+                    {user && user.role === 'admin' && (
                         <li
                             onClick={() => alert("Вы админ")}
                             className="mr-30 cu-p d-flex align-center"

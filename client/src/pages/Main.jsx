@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
-
 import Card from "../components/Card";
 import { Sidebar } from "../components/Sidebar/Sidebar";
+import ProductModal from "../components/ProductModal"; // Импортируем модальное окно
 
 import { getAllProducts } from "../redux/features/product/productSlice";
+import { getAllCategories } from "../redux/features/category/categorySlice";
 import { addToCart, removeCartItem } from "../redux/features/cart/cartSlice";
 import { selectUserId, getMe } from "../redux/features/auth/authSlice";
 import {
@@ -17,6 +18,7 @@ import {
 function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
     const dispatch = useDispatch();
     const { products } = useSelector((state) => state.products);
+    const { categories } = useSelector((state) => state.categories);
     const { cart } = useSelector((state) => state.cart);
     const userId = useSelector(selectUserId);
     const { favorites } = useSelector((state) => state.favorites);
@@ -27,6 +29,7 @@ function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
         subcategory: "",
     });
     const [currentFilters, setCurrentFilters] = useState([]);
+    const [selectedProduct, setSelectedProduct] = useState(null); // Состояние для выбранного продукта
 
     const filterLabels = {
         gender: {
@@ -36,21 +39,16 @@ function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
         },
         category: {
             "": "Все категории",
-            "t-shirts": "Футболки",
-            shorts: "Шорты",
-            // pants: "Брюки",
-            shoes: "Обувь",
-            underwear: "Нижнее белье",
+            ...categories.reduce((acc, category) => {
+                acc[category._id] = category.name;
+                return acc;
+            }, {}),
         },
-        // subcategory: {
-        //     "": "Все подкатегории",
-        //     "male": "Тест1",
-        //     "female": "Тест2"
-        // }
     };
 
     useEffect(() => {
         dispatch(getAllProducts(filters));
+        dispatch(getAllCategories());
         if (userId) {
             dispatch(getFavorites(userId));
         }
@@ -62,6 +60,20 @@ function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
             dispatch(getMe());
         }
     }, [dispatch]);
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+                handleCloseModal();
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
 
     const handleFilterChange = (name, value) => {
         setFilters((prevFilters) => ({
@@ -133,6 +145,14 @@ function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
         }
     };
 
+    const handleOpenModal = (product) => {
+        setSelectedProduct(product);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedProduct(null);
+    };
+
     const renderItems = () => {
         const filtredItems = products.filter((item) =>
             item.title.toLowerCase().includes(searchValue.toLowerCase())
@@ -150,6 +170,7 @@ function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
                         imageUrl={product.imageUrl}
                         onFavorite={() => handleAddToFavorite(product._id)}
                         onPlus={() => handleAddToCart(product._id)}
+                        onClick={() => handleOpenModal(product)} // Обработчик для открытия модального окна
                         isItemAdded={cart.some(
                             (item) => item.product._id === product._id
                         )}
@@ -203,6 +224,15 @@ function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
             </div>
 
             <div className="d-flex flex-wrap card-render">{renderItems()}</div>
+
+            {selectedProduct && (
+                <ProductModal
+                    product={selectedProduct}
+                    onClose={handleCloseModal}
+                    onAddToCart={handleAddToCart}
+                    loading={loading[selectedProduct._id]}
+                />
+            )}
         </div>
     );
 }
