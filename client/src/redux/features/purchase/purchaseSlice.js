@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../../utils/axios";
+import { toast } from "react-toastify";
 
 const initialState = {
     purchases: [],
@@ -14,6 +15,11 @@ export const createPurchase = createAsyncThunk(
             const response = await axios.post("/purchases/create", { userId });
             return response.data;
         } catch (error) {
+            if (error.response && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Ошибка создания покупки.");
+            }
             return thunkAPI.rejectWithValue(error.response.data);
         }
     }
@@ -32,9 +38,12 @@ export const getPurchases = createAsyncThunk(
     }
 );
 
-export const clearPurchases = createAsyncThunk("/purchases/clearPurchases", async () => {
-    return {};
-});
+export const clearPurchases = createAsyncThunk(
+    "/purchases/clearPurchases",
+    async () => {
+        return {};
+    }
+);
 
 const purchaseSlice = createSlice({
     name: "purchases",
@@ -42,7 +51,6 @@ const purchaseSlice = createSlice({
     reducers: {},
     extraReducers: (builder) => {
         builder
-
             .addCase(createPurchase.pending, (state) => {
                 state.loading = true;
             })
@@ -53,7 +61,6 @@ const purchaseSlice = createSlice({
             .addCase(createPurchase.rejected, (state) => {
                 state.loading = false;
             })
-
             .addCase(getPurchases.pending, (state) => {
                 state.loading = true;
             })
@@ -64,7 +71,6 @@ const purchaseSlice = createSlice({
             .addCase(getPurchases.rejected, (state) => {
                 state.loading = false;
             })
-
             .addCase(clearPurchases.pending, (state) => {
                 state.loading = true;
             })

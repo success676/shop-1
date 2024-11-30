@@ -102,11 +102,14 @@ header {
 }
 
 .all-pages {
-    border-top-left-radius: 15px; /* Закругление левого верхнего угла */
-    border-bottom-left-radius: 15px; /* Закругление левого нижнего угла */
     background-color: white;
     min-height: calc(100vh - 80px);
     // min-height: 100vh;
+}
+
+.main-page {
+    border-top-left-radius: 15px; /* Закругление левого верхнего угла */
+    border-bottom-left-radius: 15px; /* Закругление левого нижнего угла */
 }
 
 // logo test
@@ -607,7 +610,6 @@ header {
     }
 }
 
-/* src/components/ProductModal.css */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -623,9 +625,9 @@ header {
 
 .modal-content {
     background: white;
-    border-radius: 8px;
+    border-radius: 10px;
     width: 80%; /* Увеличиваем ширину */
-    max-width: 800px; /* Ограничиваем максимальную ширину */
+    max-width: 900px; /* Ограничиваем максимальную ширину */
     max-height: 80%; /* Ограничиваем максимальную высоту */
     overflow: hidden; /* Убираем прокрутку */
     display: flex;
@@ -658,7 +660,7 @@ header {
 
 .modal-right {
     width: 50%;
-    padding: 20px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -687,4 +689,119 @@ header {
 
 .add-to-cart-button:hover {
     background-color: lighten(#9dd558, 5%);
+}
+
+.orders-container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.order-container {
+    border: 1px solid #ccc;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.order-container h2 {
+    margin-top: 0;
+    font-size: 1.2em;
+    color: #333;
+}
+
+.order-container h3 {
+    margin-top: 10px;
+    font-size: 1em;
+    color: #555;
+}
+
+.products-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.no-items-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px;
+}
+
+.sad-face-img {
+    width: 100px;
+    height: 100px;
+    margin-bottom: 20px;
+}
+
+.no-items-container h2 {
+    font-size: 1.5em;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.no-items-container p {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.back-button {
+    background-color: #9dd558;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: lighten(#9dd558, 5%);
+}
+
+
+
+
+
+
+
+
+.profile-button {
+    position: relative;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 150%;
+    right: -25px;
+    background-color: #161d25;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 150px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dropdown-item {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dropdown-item:hover {
+    background-color: #393e46;
+}
+
+.dropdown-item span {
+    margin-left: 10px;
 }

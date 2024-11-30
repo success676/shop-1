@@ -14,7 +14,7 @@ function Card({
     isItemFavorited,
     loading,
     isOrderPage,
-    onClick, // Добавляем обработчик нажатия
+    onClick,
 }) {
     const { loading: productsLoading } = useSelector((state) => state.products);
 
@@ -32,8 +32,6 @@ function Card({
 
     return (
         <div className={styles.card} onClick={onClick}>
-            {" "}
-            {/* Добавляем обработчик нажатия */}
             {productsLoading ? (
                 <ContentLoader
                     speed={2}

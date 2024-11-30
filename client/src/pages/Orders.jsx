@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import { getPurchases } from "../redux/features/purchase/purchaseSlice";
 import { selectUserId } from "../redux/features/auth/authSlice";
-
 import Card from "../components/Card";
+import NoItems from "../components/NoItems";
 
 const Orders = () => {
     const dispatch = useDispatch();
@@ -19,28 +18,43 @@ const Orders = () => {
 
     return (
         <div className="content p-40 all-pages orders-page">
-            <div className="d-flex align-center justify-between mb-40">
+            <div className="header d-flex align-center justify-between mb-40">
                 <h1>Мои заказы</h1>
             </div>
-            <div className="d-flex flex-wrap">
+            <div className="orders-container">
                 {purchases.length > 0 ? (
-                    purchases.map((purchase, purchaseIndex) =>
-                        purchase.products && purchase.products.length > 0 ? (
-                            purchase.products.map((item, index) => (
-                                <Card
-                                    key={`${purchaseIndex}-${index}`}
-                                    {...item.product}
-                                    isOrderPage
-                                />
-                            ))
-                        ) : (
-                            <div key={purchaseIndex}>
-                                В этой покупке нет товаров
+                    purchases.map((purchase, purchaseIndex) => (
+                        <div key={purchaseIndex} className="order-container">
+                            <h2>
+                                Дата покупки:{" "}
+                                {new Date(
+                                    purchase.createdAt
+                                ).toLocaleDateString()}
+                            </h2>
+                            <h3>Общая цена: {purchase.totalPrice} руб.</h3>
+                            <div className="products-list">
+                                {purchase.products &&
+                                purchase.products.length > 0 ? (
+                                    purchase.products.map((item, index) => (
+                                        <Card
+                                            key={`${purchaseIndex}-${index}`}
+                                            {...item.product}
+                                            isOrderPage
+                                        />
+                                    ))
+                                ) : (
+                                    <div>В этой покупке нет товаров</div>
+                                )}
                             </div>
-                        )
-                    )
+                        </div>
+                    ))
                 ) : (
-                    <div>Вы еще ничего не купили</div>
+                    <NoItems
+                        title="У вас нет заказов"
+                        description="Вы ничего не заказали? Оформите хотя бы один заказ."
+                        buttonText="На шопинг!"
+                        imageUrl="./img/sad-face.png"
+                    />
                 )}
             </div>
         </div>

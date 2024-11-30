@@ -1,20 +1,12 @@
 // src/components/Sidebar/Sidebar.js
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 
 import { toast } from "react-toastify";
-import { MdLogout, MdOutlineDeleteSweep } from "react-icons/md";
-
-import { checkIsAuth, logout } from "../../redux/features/auth/authSlice";
-import { clearCart } from "../../redux/features/cart/cartSlice";
-import { clearFavorites } from "../../redux/features/favorites/favoritesSlice";
-import { clearPurchases } from "../../redux/features/purchase/purchaseSlice";
+import { MdOutlineDeleteSweep } from "react-icons/md";
 
 export const Sidebar = ({ onFilterChange, onResetFilters }) => {
-    const isAuth = useSelector(checkIsAuth);
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const location = useLocation();
     const { categories } = useSelector((state) => state.categories);
 
@@ -23,17 +15,6 @@ export const Sidebar = ({ onFilterChange, onResetFilters }) => {
         category: "",
         subcategory: "",
     });
-
-    const logoutHandler = () => {
-        dispatch(logout());
-        dispatch(clearCart());
-        dispatch(clearFavorites());
-        dispatch(clearPurchases());
-        window.localStorage.removeItem("token");
-        toast("Вы вышли из системы.");
-
-        navigate("/");
-    };
 
     const handleFilterChange = (e) => {
         const { name, value } = e.target;
@@ -77,8 +58,9 @@ export const Sidebar = ({ onFilterChange, onResetFilters }) => {
                     </div>
                     <ul>
                         <li>
-                            <label>
+                            <label className="cu-p">
                                 <input
+                                    className="mr-10 cu-p"
                                     type="radio"
                                     name="gender"
                                     value=""
@@ -90,8 +72,9 @@ export const Sidebar = ({ onFilterChange, onResetFilters }) => {
                             </label>
                         </li>
                         <li>
-                            <label>
+                            <label className="cu-p">
                                 <input
+                                    className="mr-10 cu-p"
                                     type="radio"
                                     name="gender"
                                     value="male"
@@ -103,8 +86,9 @@ export const Sidebar = ({ onFilterChange, onResetFilters }) => {
                             </label>
                         </li>
                         <li>
-                            <label>
+                            <label className="cu-p">
                                 <input
+                                    className="mr-10 cu-p"
                                     type="radio"
                                     name="gender"
                                     value="female"
@@ -121,8 +105,9 @@ export const Sidebar = ({ onFilterChange, onResetFilters }) => {
                     Категории:
                     <ul>
                         <li>
-                            <label>
+                            <label className="cu-p">
                                 <input
+                                    className="mr-10 cu-p"
                                     type="radio"
                                     name="category"
                                     value=""
@@ -135,13 +120,16 @@ export const Sidebar = ({ onFilterChange, onResetFilters }) => {
                         </li>
                         {categories.map((category) => (
                             <li key={category._id}>
-                                <label>
+                                <label className="cu-p">
                                     <input
+                                        className="mr-10 cu-p"
                                         type="radio"
                                         name="category"
                                         value={category._id}
                                         onChange={handleFilterChange}
-                                        checked={filters.category === category._id}
+                                        checked={
+                                            filters.category === category._id
+                                        }
                                         disabled={!isMainPage}
                                     />
                                     {category.name}
@@ -150,14 +138,6 @@ export const Sidebar = ({ onFilterChange, onResetFilters }) => {
                         ))}
                     </ul>
                 </div>
-            </div>
-            <div className="sidebar-btns">
-                {isAuth ? (
-                    <>
-                        <MdLogout size={25} />
-                        <span onClick={logoutHandler}>Выйти</span>
-                    </>
-                ) : null}
             </div>
         </aside>
     );

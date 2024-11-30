@@ -12,6 +12,12 @@ export const addToCart = async (req, res) => {
             return res.status(404).json({ message: "Продукт не найден." });
         }
 
+        if (product.stock <= 0) {
+            return res
+                .status(400)
+                .json({ message: "Товар отсутствует на складе." });
+        }
+
         let cart = await Cart.findOne({ user: userId });
 
         if (!cart) {
@@ -25,9 +31,7 @@ export const addToCart = async (req, res) => {
             );
 
             if (existingProduct) {
-                cart.products = cart.products.filter(
-                    (item) => item.product.toString() !== productId
-                );
+                existingProduct.quantity += 1;
             } else {
                 cart.products.push({ product: productId, quantity: 1 });
             }

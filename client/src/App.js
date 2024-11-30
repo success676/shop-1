@@ -68,41 +68,41 @@ function App() {
                     <Route
                         path="/favorites"
                         element={
-                            <MainLayout>
+                            <HomeLayout>
                                 <Favorites />
-                            </MainLayout>
+                            </HomeLayout>
                         }
                     />
                     <Route
                         path="/orders"
                         element={
-                            <MainLayout>
+                            <HomeLayout>
                                 <Orders />
-                            </MainLayout>
+                            </HomeLayout>
                         }
                     />
                     <Route
                         path="/login"
                         element={
-                            <MainLayout>
+                            <HomeLayout>
                                 <LoginPage />
-                            </MainLayout>
+                            </HomeLayout>
                         }
                     />
                     <Route
                         path="/register"
                         element={
-                            <MainLayout>
+                            <HomeLayout>
                                 <RegisterPage />
-                            </MainLayout>
+                            </HomeLayout>
                         }
                     />
                     <Route
                         path="/profile"
                         element={
-                            <MainLayout>
+                            <HomeLayout>
                                 <Profile />
-                            </MainLayout>
+                            </HomeLayout>
                         }
                     />
 

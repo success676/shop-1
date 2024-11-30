@@ -16,7 +16,7 @@ const ProductSchema = new mongoose.Schema(
         },
         category: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Category',
+            ref: "Category",
             required: true,
         },
         gender: {
@@ -26,6 +26,11 @@ const ProductSchema = new mongoose.Schema(
         description: {
             type: String,
             required: false,
+        },
+        stock: {
+            type: Number,
+            required: true,
+            default: 0,
         },
     },
     { timestamps: true }

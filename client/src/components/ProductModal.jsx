@@ -27,6 +27,7 @@ const ProductModal = ({ product, onClose, onAddToCart, loading }) => {
                     <h2>{product.title}</h2>
                     <p>{product.description}</p>
                     <p>Цена: {product.price} руб.</p>
+                    <p>В наличии: {product.stock}</p>
                     <p>Категория: {product.category.name}</p>
                     <p>Пол: {getGenderInRussian(product.gender)}</p>
                     <button

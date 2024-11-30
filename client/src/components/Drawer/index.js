@@ -86,7 +86,7 @@ const Drawer = ({ onClose, opened }) => {
                 opened ? styles.overlayVisible : ""
             }`}
         >
-            <div className={`${styles.drawer}`}>
+            <div className={styles.drawer}>
                 <h2 className="d-flex justify-between mb-30">
                     Корзина{" "}
                     <img

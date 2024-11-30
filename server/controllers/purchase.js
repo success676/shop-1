@@ -1,6 +1,7 @@
 import Cart from "../models/Cart.js";
 import Purchase from "../models/Purchase.js";
 import User from "../models/User.js";
+import Product from "../models/Product.js";
 
 export const createPurchase = async (req, res) => {
     try {
@@ -25,6 +26,18 @@ export const createPurchase = async (req, res) => {
             0
         );
 
+        // Проверка наличия товара на складе
+        for (const item of cart.products) {
+            const product = await Product.findById(item.product._id);
+            if (product.stock < item.quantity) {
+                return res
+                    .status(400)
+                    .json({
+                        message: `Недостаточно товара "${product.title}" на складе.`,
+                    });
+            }
+        }
+
         const purchase = new Purchase({
             user: userId,
             products: cart.products.map((item) => ({
@@ -44,12 +57,20 @@ export const createPurchase = async (req, res) => {
             console.log(error);
         }
 
+        // Уменьшение количества товара на складе
+        for (const item of cart.products) {
+            await Product.findByIdAndUpdate(item.product._id, {
+                $inc: { stock: -item.quantity },
+            });
+        }
+
         // Очистка корзины после покупки
         cart.products = [];
         await cart.save();
 
         res.json(purchase);
     } catch (error) {
+        console.error("Ошибка создания покупки:", error);
         res.status(500).json({ message: "Ошибка создания покупки", error });
     }
 };

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "../../../utils/axios";
+import { toast } from "react-toastify";
 
 const initialState = {
     cart: [],
@@ -19,7 +20,12 @@ export const addToCart = createAsyncThunk(
             dispatch(getCart(userId));
             return data;
         } catch (error) {
-            console.log(error);
+            if (error.response && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Ошибка добавления товара в корзину.");
+            }
+            throw error;
         }
     }
 );
