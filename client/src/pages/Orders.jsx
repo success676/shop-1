@@ -5,6 +5,8 @@ import { selectUserId } from "../redux/features/auth/authSlice";
 import Card from "../components/Card";
 import NoItems from "../components/NoItems";
 
+import config from "../config";
+
 const Orders = () => {
     const dispatch = useDispatch();
     const { purchases } = useSelector((state) => state.purchases);
@@ -38,7 +40,9 @@ const Orders = () => {
                                     purchase.products.map((item, index) => (
                                         <Card
                                             key={`${purchaseIndex}-${index}`}
+                                            
                                             {...item.product}
+                                            imageUrl={`${config.apiUrl}/${config.imgGoods}/${item.product.imageUrl}`}
                                             isOrderPage
                                         />
                                     ))

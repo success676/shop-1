@@ -1,5 +1,7 @@
 import React from "react";
 
+import config from "../config";
+
 const getGenderInRussian = (gender) => {
     switch (gender) {
         case "male":
@@ -16,12 +18,12 @@ const ProductModal = ({ product, onClose, onAddToCart, loading }) => {
 
     return (
         <div className="modal-overlay" onClick={onClose}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <div className="modal-content-main" onClick={(e) => e.stopPropagation()}>
                 <button className="close-button" onClick={onClose}>
                     &times;
                 </button>
                 <div className="modal-left">
-                    <img src={product.imageUrl} alt={product.title} />
+                    <img src={`${config.apiUrl}/${config.imgGoods}/${product.imageUrl}`} alt={product.title} />
                 </div>
                 <div className="modal-right">
                     <h2>{product.title}</h2>

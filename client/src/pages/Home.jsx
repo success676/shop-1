@@ -47,27 +47,32 @@ export const Home = () => {
                         <img src="./img/swiper/5.jpg" alt="" />
                     </SwiperSlide>
                     <SwiperSlide>
+                        <img src="./img/swiper/6.jpg" alt="" />
+                    </SwiperSlide>
+                    <SwiperSlide>
                         <img src="./img/swiper/zub.jpg" alt="" />
                     </SwiperSlide>
                 </Swiper>
             </div>
 
-            <div className="container">
-                <section className="about-us">
-                    <h2>О нас</h2>
-                    <p>
-                        Cailin Kelai — это дорогой бренд мужской и женской
-                        одежды. Мы занимаемся созданием уникальных и стильных
-                        вещей, которые подчеркнут вашу индивидуальность и
-                        элегантность. Наш бренд стремится к совершенству в
-                        каждой детали, чтобы вы всегда чувствовали себя уверенно
-                        и комфортно.
-                    </p>
-                </section>
+            <div className="about-sec">
+                <div className="container">
+                    <section className="about-us">
+                        <h2>О нас</h2>
+                        <p>
+                            Cailin Kelai — это дорогой бренд мужской и женской
+                            одежды. Мы занимаемся созданием уникальных и стильных
+                            вещей, которые подчеркнут вашу индивидуальность и
+                            элегантность. Наш бренд стремится к совершенству в
+                            каждой детали, чтобы вы всегда чувствовали себя уверенно
+                            и комфортно.
+                        </p>
+                    </section>
+                </div>
             </div>
 
             <div className="loyalty">
-                <h2>С нами сотрудничают</h2>
+                <h2>Наши партнеры</h2>
                 <div className="marquee">
                     <div className="track">
                         <div className="content">

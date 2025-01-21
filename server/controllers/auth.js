@@ -41,7 +41,7 @@ export const register = async (req, res) => {
         await newUser.save();
 
         res.json({
-            newUser,
+            user: newUser,
             token,
             message: "Регистрация прошла успешно.",
         });
@@ -105,5 +105,33 @@ export const getMe = async (req, res) => {
         });
     } catch (error) {
         res.json({ message: "Нет доступа." });
+    }
+};
+
+// Update user
+export const updateUser = async (req, res) => {
+    try {
+        const userId = req.userId;
+        const { contactInfo } = req.body;
+
+        const updatedUser = await User.findByIdAndUpdate(
+            userId,
+            { contactInfo },
+            { new: true }
+        );
+
+        const token = jwt.sign(
+            { id: updatedUser._id },
+            process.env.JWT_SECRET,
+            { expiresIn: "30d" }
+        );
+
+        res.json({
+            user: updatedUser,
+            token,
+            message: "Профиль успешно обновлен.",
+        });
+    } catch (error) {
+        res.json({ message: "Ошибка при обновлении профиля." });
     }
 };

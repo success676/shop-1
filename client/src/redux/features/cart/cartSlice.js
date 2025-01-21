@@ -59,6 +59,30 @@ export const clearCart = createAsyncThunk("cart/clearCart", async () => {
     return {};
 });
 
+// cartSlice.js
+
+export const checkStock = createAsyncThunk(
+    "cart/checkStock",
+    async (userId, { rejectWithValue }) => {
+        try {
+            const { data } = await axios.get(`/cart/${userId}`);
+            const cart = data.products;
+
+            for (const item of cart) {
+                const { data: product } = await axios.get(`/products/${item.product._id}`);
+                if (product.stock < item.quantity) {
+                    return rejectWithValue({ message: `Недостаточно товара "${product.title}" на складе.` });
+                }
+            }
+
+            return data;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
+
 const cartSlice = createSlice({
     name: "cart",
     initialState,

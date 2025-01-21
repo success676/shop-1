@@ -58,6 +58,19 @@ export const getMe = createAsyncThunk("auth/getMe", async () => {
     }
 });
 
+// Асинхронный thunk для обновления пользователя
+export const updateUser = createAsyncThunk(
+    "auth/updateUser",
+    async (updatedData) => {
+        try {
+            const { data } = await axios.put("/auth/update", updatedData);
+            return data;
+        } catch (error) {
+            console.log(error);
+        }
+    }
+);
+
 // Создание слайса для управления состоянием аутентификации
 export const authSlice = createSlice({
     name: "auth",
@@ -73,11 +86,8 @@ export const authSlice = createSlice({
             state.status = null;
         },
     },
-
-    // Используем builder callback notation для определения extraReducers
     extraReducers: (builder) => {
         builder
-
             // Register user
             .addCase(registerUser.pending, (state) => {
                 state.isLoading = true;
@@ -124,11 +134,26 @@ export const authSlice = createSlice({
             .addCase(getMe.rejected, (state, action) => {
                 state.status = action.payload.message;
                 state.isLoading = false;
+            })
+
+            // Update user
+            .addCase(updateUser.pending, (state) => {
+                state.isLoading = true;
+                state.status = null;
+            })
+            .addCase(updateUser.fulfilled, (state, action) => {
+                state.isLoading = false;
+                state.status = action.payload.message;
+                state.user = action.payload.user;
+                state.token = action.payload.token;
+            })
+            .addCase(updateUser.rejected, (state, action) => {
+                state.status = action.payload.message;
+                state.isLoading = false;
             });
     },
 });
 
-// test new
 export const selectUserId = (state) => state.auth.user?._id;
 
 export const checkIsAuth = (state) => Boolean(state.auth.token);

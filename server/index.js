@@ -2,13 +2,15 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import cors from "cors";
+import fileUpload from "express-fileupload";
 
 import authRoute from "./routes/auth.js";
-import cartRoute from './routes/cart.js';
-import purchaseRoute from './routes/purchase.js';
-import favoriteRoute from './routes/favorite.js';
-import productRoutes from './routes/product.js';
+import cartRoute from "./routes/cart.js";
+import purchaseRoute from "./routes/purchase.js";
+import favoriteRoute from "./routes/favorite.js";
+import productRoutes from "./routes/product.js";
 import categoryRoutes from "./routes/category.js";
+import adminRoutes from "./routes/admin.js";
 
 const app = express();
 dotenv.config();
@@ -21,7 +23,9 @@ const DB_NAME = process.env.DB_NAME;
 
 // Middleware
 app.use(cors());
+app.use(fileUpload());
 app.use(express.json());
+app.use(express.static("uploads"));
 
 // Routes
 app.use("/api/auth", authRoute);
@@ -30,7 +34,7 @@ app.use("/api/purchases", purchaseRoute);
 app.use("/api/favorites", favoriteRoute);
 app.use("/api/products", productRoutes);
 app.use("/api/category", categoryRoutes);
-
+app.use("/api/admin", adminRoutes);
 
 async function start() {
     try {

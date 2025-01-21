@@ -29,6 +29,17 @@ const UserSchema = new mongoose.Schema(
                 ref: "Purchase",
             },
         ],
+        contactInfo: {
+            fullName: String,
+            email: String,
+            phone: String,
+            address: {
+                street: String,
+                city: String,
+                state: String,
+                zip: String,
+            },
+        },
     },
     { timestamps: true }
 );

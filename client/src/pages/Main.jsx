@@ -15,6 +15,8 @@ import {
     getFavorites,
 } from "../redux/features/favorites/favoritesSlice";
 
+import config from "../config";
+
 function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
     const dispatch = useDispatch();
     const { products } = useSelector((state) => state.products);
@@ -167,7 +169,7 @@ function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
                         id={product._id}
                         title={product.title}
                         price={product.price}
-                        imageUrl={product.imageUrl}
+                        imageUrl={`${config.apiUrl}/${config.imgGoods}/${product.imageUrl}`}
                         onFavorite={() => handleAddToFavorite(product._id)}
                         onPlus={() => handleAddToCart(product._id)}
                         onClick={() => handleOpenModal(product)} // Обработчик для открытия модального окна

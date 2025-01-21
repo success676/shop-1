@@ -85,16 +85,15 @@ function Header(props) {
                 <div className="d-flex align-center">
                     <ul className="d-flex align-center">
                         {user && user.role === "admin" && (
-                            <li
-                                onClick={() => alert("Вы админ")}
-                                className="mr-30 cu-p d-flex align-center"
-                            >
-                                <MdAdminPanelSettings
-                                    className="mr-10"
-                                    size={25}
-                                />
-                                <p>Админ панель</p>
-                            </li>
+                            <Link to="/admin/dashboard">
+                                <li className="mr-30 cu-p d-flex align-center">
+                                    <MdAdminPanelSettings
+                                        className="mr-10"
+                                        size={25}
+                                    />
+                                    <p>Админ панель</p>
+                                </li>
+                            </Link>
                         )}
                         <li
                             onClick={() => setCartOpened(true)}

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../components/Card";
+import ProductModal from "../components/ProductModal"; // Импортируем модальное окно
 import {
     getFavorites,
     removeFromFavorites,
@@ -10,18 +11,35 @@ import { addToCart, removeCartItem } from "../redux/features/cart/cartSlice";
 import NoItems from "../components/NoItems";
 import { toast } from "react-toastify";
 
+import config from "../config";
+
 function Favorites() {
     const dispatch = useDispatch();
     const userId = useSelector(selectUserId);
     const { favorites } = useSelector((state) => state.favorites);
     const { cart } = useSelector((state) => state.cart);
     const [loading, setLoading] = useState({});
+    const [selectedProduct, setSelectedProduct] = useState(null); // Состояние для выбранного продукта
 
     useEffect(() => {
         if (userId) {
             dispatch(getFavorites(userId));
         }
     }, [dispatch, userId]);
+
+    useEffect(() => {
+        const handleKeyDown = (event) => {
+            if (event.key === "Escape") {
+                handleCloseModal();
+            }
+        };
+
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.removeEventListener("keydown", handleKeyDown);
+        };
+    }, []);
 
     const handleAddToCart = async (productId) => {
         if (loading[productId]) return;
@@ -46,6 +64,14 @@ function Favorites() {
         }
     };
 
+    const handleOpenModal = (product) => {
+        setSelectedProduct(product);
+    };
+
+    const handleCloseModal = () => {
+        setSelectedProduct(null);
+    };
+
     return (
         <div className="content p-40 all-pages favorites-page">
             <div className="d-flex align-center justify-between mb-40">
@@ -60,7 +86,7 @@ function Favorites() {
                             key={item._id}
                             id={item._id}
                             title={item.title}
-                            imageUrl={item.imageUrl}
+                            imageUrl={`${config.apiUrl}/${config.imgGoods}/${item.imageUrl}`}
                             price={item.price}
                             isItemFavorited={true}
                             onFavorite={() =>
@@ -72,6 +98,7 @@ function Favorites() {
                                 )
                             }
                             onPlus={() => handleAddToCart(item._id)}
+                            onClick={() => handleOpenModal(item)} // Обработчик для открытия модального окна
                             isItemAdded={cart.some(
                                 (cartItem) => cartItem.product._id === item._id
                             )}
@@ -87,6 +114,15 @@ function Favorites() {
                     />
                 )}
             </div>
+
+            {selectedProduct && (
+                <ProductModal
+                    product={selectedProduct}
+                    onClose={handleCloseModal}
+                    onAddToCart={handleAddToCart}
+                    loading={loading[selectedProduct._id]}
+                />
+            )}
         </div>
     );
 }

@@ -1,23 +1,23 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    createPurchase,
-    getPurchases,
-} from "../../redux/features/purchase/purchaseSlice";
-import {
     removeCartItem,
     getCart,
-    clearCart,
+    checkStock,
 } from "../../redux/features/cart/cartSlice";
 import { selectUserId } from "../../redux/features/auth/authSlice";
 import { toast } from "react-toastify";
 import Info from "../Info";
 import styles from "./Drawer.module.scss";
+import { useNavigate } from "react-router-dom";
+
+import config from "../../config";
 
 const Drawer = ({ onClose, opened }) => {
     const dispatch = useDispatch();
     const { cart, totalPrice, totalTax } = useSelector((state) => state.cart);
     const userId = useSelector(selectUserId);
+    const navigate = useNavigate();
 
     const handleRemoveFromCart = (productId) => {
         if (userId) {
@@ -39,13 +39,16 @@ const Drawer = ({ onClose, opened }) => {
     const onClickOrder = async () => {
         try {
             setIsLoading(true);
-            await dispatch(createPurchase(userId)).unwrap();
-            setIsOrderComplete(true);
+            const resultAction = await dispatch(checkStock(userId));
+            if (checkStock.fulfilled.match(resultAction)) {
+                onClose();
+                navigate("/checkout");
+            } else {
+                toast.error(resultAction.payload.message);
+            }
             setIsLoading(false);
-            dispatch(clearCart());
-            dispatch(getPurchases(userId));
         } catch (error) {
-            toast.error("Ошибка при создании заказа");
+            toast.error("Ошибка при проверке наличия товаров");
             setIsLoading(false);
         }
     };
@@ -107,7 +110,7 @@ const Drawer = ({ onClose, opened }) => {
                                 >
                                     <div
                                         style={{
-                                            backgroundImage: `url(${item.product.imageUrl})`,
+                                            backgroundImage: `url(${config.apiUrl}/${config.imgGoods}/${item.product.imageUrl})`,
                                         }}
                                         className="cartItemImg"
                                     ></div>
