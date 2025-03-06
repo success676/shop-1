@@ -11,6 +11,8 @@ import favoriteRoute from "./routes/favorite.js";
 import productRoutes from "./routes/product.js";
 import categoryRoutes from "./routes/category.js";
 import adminRoutes from "./routes/admin.js";
+import addressRoutes from "./routes/address.js";
+import profileRoutes from "./routes/profile.js";
 
 const app = express();
 dotenv.config();
@@ -35,6 +37,8 @@ app.use("/api/favorites", favoriteRoute);
 app.use("/api/products", productRoutes);
 app.use("/api/category", categoryRoutes);
 app.use("/api/admin", adminRoutes);
+app.use("/api/address", addressRoutes);
+app.use("/api/profile", profileRoutes);
 
 async function start() {
     try {

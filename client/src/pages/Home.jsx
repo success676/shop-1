@@ -4,7 +4,6 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
 import { Autoplay, Pagination, Navigation } from "swiper/modules";
-import { Footer } from "../components/Footer/Footer";
 import { Link } from "react-router-dom";
 
 export const Home = () => {
@@ -61,11 +60,11 @@ export const Home = () => {
                         <h2>О нас</h2>
                         <p>
                             Cailin Kelai — это дорогой бренд мужской и женской
-                            одежды. Мы занимаемся созданием уникальных и стильных
-                            вещей, которые подчеркнут вашу индивидуальность и
-                            элегантность. Наш бренд стремится к совершенству в
-                            каждой детали, чтобы вы всегда чувствовали себя уверенно
-                            и комфортно.
+                            одежды. Мы занимаемся созданием уникальных и
+                            стильных вещей, которые подчеркнут вашу
+                            индивидуальность и элегантность. Наш бренд стремится
+                            к совершенству в каждой детали, чтобы вы всегда
+                            чувствовали себя уверенно и комфортно.
                         </p>
                     </section>
                 </div>
@@ -157,8 +156,6 @@ export const Home = () => {
                     Перейти к покупкам
                 </Link>
             </div>
-
-            <Footer />
         </div>
     );
 };

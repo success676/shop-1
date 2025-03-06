@@ -3,6 +3,7 @@ const config = {
     frontendUrl: process.env.REACT_APP_FRONTEND_URL || "http://localhost:3000",
     
     imgGoods: "goods",
+    imgProfile: "profile",
 
 };
 

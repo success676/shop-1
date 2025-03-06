@@ -1,5 +1,12 @@
 import mongoose from "mongoose";
 
+const AddressSchema = new mongoose.Schema({
+    street: String,
+    city: String,
+    state: String,
+    zip: String,
+});
+
 const UserSchema = new mongoose.Schema(
     {
         username: {
@@ -33,15 +40,15 @@ const UserSchema = new mongoose.Schema(
             fullName: String,
             email: String,
             phone: String,
-            address: {
-                street: String,
-                city: String,
-                state: String,
-                zip: String,
-            },
+            addresses: [AddressSchema],
+        },
+        profilePhoto: {
+            type: String,
+            default: "",
         },
     },
     { timestamps: true }
 );
+
 
 export default mongoose.model("User", UserSchema);

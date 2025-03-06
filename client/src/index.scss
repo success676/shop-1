@@ -829,7 +829,7 @@ header {
     border-radius: 4px;
     cursor: pointer;
     background-color: #28a745;
-        color: white;
+    color: white;
 }
 
 .admin-dashboard-product:hover {
@@ -876,6 +876,15 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+.adminUserProfilePhoto {
+    width: 100px !important;
+    height: 100px !important;
+    margin-right: 50px !important;
+    margin-left: 10px !important;
+    object-fit: cover !important;
+    border-radius: 50%;
 }
 
 .toggler {
@@ -1074,35 +1083,6 @@ header {
     background-color: #717171;
     color: white;
     font-weight: bold;
-}
-
-.profile-form {
-    display: flex;
-    flex-direction: column;
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-.form-group label {
-    margin-bottom: 5px;
-    font-weight: bold;
-    color: #333;
-}
-
-.form-group input {
-    width: 100%;
-    padding: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 5px;
 }
 
 // Checkout
