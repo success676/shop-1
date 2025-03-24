@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
+
 import styles from "./AddressModal.module.scss";
 
 const AddressModal = ({ isOpen, onClose, onSave, initialData = {} }) => {
-    const [address, setAddress] = useState(initialData);
-    const [errors, setErrors] = useState({});
+    const [address, setAddress] = React.useState(initialData);
+    const [errors, setErrors] = React.useState({});
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -64,7 +65,7 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData = {} }) => {
         }
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (isOpen) {
             document.addEventListener("keydown", handleEscape);
         } else {
@@ -80,7 +81,10 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData = {} }) => {
 
     return (
         <div className={styles.modalOverlay} onClick={handleClose}>
-            <div className={styles.modalContent} onClick={e => e.stopPropagation()}>
+            <div
+                className={styles.modalContent}
+                onClick={(e) => e.stopPropagation()}
+            >
                 <h2>Добавить новый адрес</h2>
                 <div className={styles.formGroup}>
                     <label>Страна</label>
@@ -91,7 +95,9 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData = {} }) => {
                         onChange={handleChange}
                         required
                     />
-                    {errors.state && <p className={styles.error}>{errors.state}</p>}
+                    {errors.state && (
+                        <p className={styles.error}>{errors.state}</p>
+                    )}
                 </div>
                 <div className={styles.formGroup}>
                     <label>Город</label>
@@ -102,7 +108,9 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData = {} }) => {
                         onChange={handleChange}
                         required
                     />
-                    {errors.city && <p className={styles.error}>{errors.city}</p>}
+                    {errors.city && (
+                        <p className={styles.error}>{errors.city}</p>
+                    )}
                 </div>
                 <div className={styles.formGroup}>
                     <label>Улица</label>
@@ -113,7 +121,9 @@ const AddressModal = ({ isOpen, onClose, onSave, initialData = {} }) => {
                         onChange={handleChange}
                         required
                     />
-                    {errors.street && <p className={styles.error}>{errors.street}</p>}
+                    {errors.street && (
+                        <p className={styles.error}>{errors.street}</p>
+                    )}
                 </div>
                 <div className={styles.formGroup}>
                     <label>Номер дома</label>

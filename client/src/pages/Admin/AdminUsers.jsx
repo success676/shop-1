@@ -4,7 +4,7 @@ import {
     fetchUsers,
     updateUserRole,
 } from "../../redux/features/admin/adminSlice";
-import config from "../../config";
+import config from "../../utils/config";
 
 const AdminUsers = () => {
     const dispatch = useDispatch();

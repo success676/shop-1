@@ -27,78 +27,11 @@ body {
     // grid-template-columns: 1fr 4fr;
 }
 
-header {
-    // fixed test
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 80px;
-    z-index: 900;
-    // fixed test
-
-    background-color: #161d25;
-    padding: 20px 25px;
-    color: rgb(225, 225, 225);
-    img {
-        margin-right: 10px;
-    }
-    h3,
-    p {
-        margin: 0;
-    }
-}
-
-.sidebar {
-    // fixed test
-    position: fixed;
-    top: 80px; /* Высота Header */
-    left: 0;
-    bottom: 0;
-    width: 300px;
-    background-color: #f4f4f4;
-    padding: 20px;
-    overflow-y: auto;
-    // fixed test
-
-    background-color: #161d25;
-    color: rgb(225, 225, 225);
-    height: calc(100vh - 80px);
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start; // Исправлено с start на flex-start
-    padding: 20px 0px 20px 25px;
-
-    ul {
-        li {
-            margin: 20px 0px 20px 10px;
-        }
-    }
-}
-
 .layout-main {
     // fixed test
     margin-left: 300px; /* Ширина Sidebar */
     flex-grow: 1;
     // fixed test
-}
-
-.sidebar-content {
-    flex-grow: 1;
-}
-
-.sidebar-btns {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
-    max-width: max-content;
-}
-
-.sidebar-row-btn {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
 }
 
 .all-pages {
@@ -111,52 +44,6 @@ header {
     border-top-left-radius: 15px; /* Закругление левого верхнего угла */
     border-bottom-left-radius: 15px; /* Закругление левого нижнего угла */
 }
-
-// logo test
-/* === removing default button style ===*/
-.logo__btn {
-    margin: 0;
-    height: auto;
-    background: transparent;
-    padding: 0;
-    border: none;
-    cursor: pointer;
-}
-
-/* button styling */
-.logo__btn {
-    --border-right: 6px;
-    --text-stroke-color: rgb(225, 225, 225);
-    --animation-color: #37ff8b;
-    --fs-size: 2em;
-    letter-spacing: 3px;
-    text-decoration: none;
-    font-size: var(--fs-size);
-    font-weight: 500;
-    position: relative;
-    text-transform: uppercase;
-    color: transparent;
-    color: var(--text-stroke-color);
-}
-/* this is the text, when you hover on button */
-.logo__text-hover {
-    position: absolute;
-    box-sizing: border-box;
-    content: attr(data-text);
-    color: var(--animation-color);
-    width: 0%;
-    inset: 0;
-    border-right: var(--border-right) solid var(--animation-color);
-    overflow: hidden;
-    transition: 0.5s;
-    -webkit-text-stroke: 1px var(--animation-color);
-}
-/* hover */
-.logo__btn:hover .logo__text-hover {
-    width: 100%;
-    filter: drop-shadow(0 0 23px var(--animation-color));
-}
-// logo test
 
 // REGISTER FORM
 
@@ -252,34 +139,6 @@ header {
     }
 }
 
-.cartEmpty {
-    text-align: center;
-
-    p {
-        width: 280px;
-        line-height: 24px;
-    }
-
-    .greenButton {
-        width: 245px;
-        margin-top: 20px;
-
-        &:hover {
-            img {
-                transform: rotate(180deg) translateX(3px);
-            }
-        }
-
-        img {
-            position: relative;
-            top: 1px;
-            transform: rotate(180deg);
-            margin-right: 15px;
-            transition: transform 0.15s ease-in-out;
-        }
-    }
-}
-
 .card-render {
     justify-content: space-evenly;
 }
@@ -349,6 +208,7 @@ header {
     }
 }
 
+// main greenButton
 .greenButton {
     width: 100%;
     height: 55px;
@@ -374,6 +234,7 @@ header {
         background: darken(#9dd558, 5%);
     }
 }
+// main greenButton
 
 .cartItem {
     border: 1px solid #f3f3f3;
@@ -548,17 +409,6 @@ header {
     line-height: 1.5;
 }
 
-.footer {
-    background-color: #161d25;
-    padding: 20px;
-    text-align: center;
-}
-
-.footer p {
-    font-size: 14px;
-    color: #ffffff;
-}
-
 .marquee {
     position: relative;
     width: 100vw;
@@ -620,90 +470,6 @@ header {
     }
 }
 
-.modal-overlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-}
-
-.modal-content-main {
-    background: white;
-    border-radius: 10px;
-    width: 80%; /* Увеличиваем ширину */
-    max-width: 900px; /* Ограничиваем максимальную ширину */
-    max-height: 80%; /* Ограничиваем максимальную высоту */
-    overflow: hidden; /* Убираем прокрутку */
-    display: flex;
-    position: relative;
-    padding: 20px;
-
-    border: 1px solid #888;
-}
-
-.close-button {
-    position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 24px;
-    cursor: pointer;
-}
-
-.modal-left {
-    width: 50%;
-    padding: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.modal-left img {
-    max-width: 100%;
-    height: auto;
-    border-radius: 8px;
-}
-
-.modal-right {
-    width: 50%;
-    padding: 30px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.modal-right h2 {
-    margin-top: 0;
-    font-size: 1.5em; /* Увеличиваем размер заголовка */
-}
-
-.modal-right p {
-    margin: 10px 0;
-    font-size: 1em; /* Увеличиваем размер текста */
-}
-
-.add-to-cart-button {
-    margin-top: 20px;
-    padding: 10px 20px;
-    background-color: #9dd558;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 1em;
-}
-
-.add-to-cart-button:hover {
-    background-color: lighten(#9dd558, 5%);
-}
-
 .orders-container {
     display: flex;
     flex-direction: column;
@@ -734,82 +500,6 @@ header {
     flex-wrap: wrap;
     gap: 10px;
     margin-top: 20px;
-}
-
-.no-items-container {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: 50px;
-}
-
-.sad-face-img {
-    width: 100px;
-    height: 100px;
-    margin-bottom: 20px;
-}
-
-.no-items-container h2 {
-    font-size: 1.5em;
-    color: #333;
-    margin-bottom: 10px;
-}
-
-.no-items-container p {
-    font-size: 1em;
-    color: #555;
-    margin-bottom: 20px;
-}
-
-.back-button {
-    background-color: #9dd558;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 25px;
-    cursor: pointer;
-    font-size: 1em;
-    transition: background-color 0.3s;
-}
-
-.back-button:hover {
-    background-color: lighten(#9dd558, 5%);
-}
-
-.profile-button {
-    position: relative;
-    cursor: pointer;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 150%;
-    right: -25px;
-    background-color: #161d25;
-    border: 1px solid #ccc;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    width: 150px;
-    border-radius: 4px;
-    overflow: hidden;
-}
-
-.dropdown-item {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.dropdown-item:hover {
-    background-color: #393e46;
-}
-
-.dropdown-item span {
-    margin-left: 10px;
 }
 
 /* AdminDashboard */
@@ -992,66 +682,6 @@ header {
 }
 
 /* AdminDashboard */
-
-/* Analytics */
-.analytics-container {
-    display: flex;
-    flex-direction: column;
-    gap: 40px;
-    margin-bottom: 30px;
-}
-
-.analytics-section {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.analytics-section h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
-    color: #333;
-}
-
-.analytics-cards {
-    display: flex;
-    justify-content: space-between;
-    gap: 20px;
-}
-
-.analytics-card {
-    flex: 1;
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    min-width: 150px;
-}
-
-.analytics-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.analytics-label {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 5px;
-}
-
-.analytics-value {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
-}
-
-.analytics-subtext {
-    font-size: 14px;
-    color: #777;
-}
 
 .layout-position-admin {
     display: flex;

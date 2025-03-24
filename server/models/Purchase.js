@@ -24,6 +24,12 @@ const PurchaseSchema = new mongoose.Schema(
             type: Number,
             required: true,
         },
+        address: {
+            street: String,
+            city: String,
+            state: String,
+            zip: String,
+        },
     },
     { timestamps: true }
 );

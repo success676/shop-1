@@ -3,9 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { getPurchases } from "../redux/features/purchase/purchaseSlice";
 import { selectUserId } from "../redux/features/auth/authSlice";
 import Card from "../components/Card";
-import NoItems from "../components/NoItems";
-
-import config from "../config";
+import NoItems from "../components/NoItems/NoItems";
+import config from "../utils/config";
 
 const Orders = () => {
     const dispatch = useDispatch();
@@ -29,18 +28,23 @@ const Orders = () => {
                         <div key={purchaseIndex} className="order-container">
                             <h2>
                                 Дата покупки:{" "}
-                                {new Date(
-                                    purchase.createdAt
-                                ).toLocaleDateString()}
+                                {new Date(purchase.createdAt).toLocaleDateString()}
                             </h2>
                             <h3>Общая цена: {purchase.totalPrice} руб.</h3>
+                            {purchase.address && (
+                                <div className="address-info">
+                                    <h4>Адрес доставки:</h4>
+                                    <p>
+                                        {purchase.address.state}, {purchase.address.city},{" "}
+                                        {purchase.address.street}, {purchase.address.zip}
+                                    </p>
+                                </div>
+                            )}
                             <div className="products-list">
-                                {purchase.products &&
-                                purchase.products.length > 0 ? (
+                                {purchase.products && purchase.products.length > 0 ? (
                                     purchase.products.map((item, index) => (
                                         <Card
                                             key={`${purchaseIndex}-${index}`}
-                                            
                                             {...item.product}
                                             imageUrl={`${config.apiUrl}/${config.imgGoods}/${item.product.imageUrl}`}
                                             isOrderPage

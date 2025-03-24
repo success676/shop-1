@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchPurchases } from "../../redux/features/admin/adminSlice";
-import Analytics from "../../components/Analytics";
+import Analytics from "../../components/Admin/AdminAnalytics/AdminAnalytics";
 
 const AdminDashboard = () => {
     const dispatch = useDispatch();

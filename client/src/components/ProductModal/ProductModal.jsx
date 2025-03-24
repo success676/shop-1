@@ -1,6 +1,8 @@
 import React from "react";
 
-import config from "../config";
+import config from "../../utils/config";
+
+import styles from "./ProductModal.module.scss";
 
 const getGenderInRussian = (gender) => {
     switch (gender) {
@@ -17,15 +19,15 @@ const ProductModal = ({ product, onClose, onAddToCart, loading }) => {
     if (!product) return null;
 
     return (
-        <div className="modal-overlay" onClick={onClose}>
-            <div className="modal-content-main" onClick={(e) => e.stopPropagation()}>
-                <button className="close-button" onClick={onClose}>
+        <div className={styles.root} onClick={onClose}>
+            <div className={styles.modalContentMain} onClick={(e) => e.stopPropagation()}>
+                <button className={styles.closeButton} onClick={onClose}>
                     &times;
                 </button>
-                <div className="modal-left">
+                <div className={styles.modalLeft}>
                     <img src={`${config.apiUrl}/${config.imgGoods}/${product.imageUrl}`} alt={product.title} />
                 </div>
-                <div className="modal-right">
+                <div className={styles.modalRight}>
                     <h2>{product.title}</h2>
                     <p>{product.description}</p>
                     <p>Цена: {product.price} руб.</p>
@@ -33,7 +35,7 @@ const ProductModal = ({ product, onClose, onAddToCart, loading }) => {
                     <p>Категория: {product.category.name}</p>
                     <p>Пол: {getGenderInRussian(product.gender)}</p>
                     <button
-                        className="add-to-cart-button"
+                        className={styles.addCartBtn}
                         onClick={() => onAddToCart(product._id)}
                         disabled={loading}
                     >

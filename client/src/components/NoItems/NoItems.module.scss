@@ -1,0 +1,41 @@
+.root {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 50px;
+
+    h2 {
+        font-size: 1.5em;
+        color: #333;
+        margin-bottom: 10px;
+    }
+
+    p {
+        font-size: 1em;
+        color: #555;
+        margin-bottom: 20px;
+    }
+
+    .sadFaceImg {
+        width: 100px;
+        height: 100px;
+        margin-bottom: 20px;
+    }
+
+    .backButton {
+        background-color: #9dd558;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 1em;
+        transition: background-color 0.3s;
+
+        &:hover {
+            background-color: lighten(#9dd558, 5%);
+        }
+    }
+}

@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../components/Card";
-import ProductModal from "../components/ProductModal"; // Импортируем модальное окно
+import ProductModal from "../components/ProductModal/ProductModal";
 import {
     getFavorites,
     removeFromFavorites,
 } from "../redux/features/favorites/favoritesSlice";
 import { selectUserId } from "../redux/features/auth/authSlice";
 import { addToCart, removeCartItem } from "../redux/features/cart/cartSlice";
-import NoItems from "../components/NoItems";
+import NoItems from "../components/NoItems/NoItems";
 import { toast } from "react-toastify";
 
-import config from "../config";
+import config from "../utils/config";
 
 function Favorites() {
     const dispatch = useDispatch();

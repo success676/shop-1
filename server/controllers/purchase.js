@@ -5,17 +5,13 @@ import Product from "../models/Product.js";
 
 export const createPurchase = async (req, res) => {
     try {
-        const { userId } = req.body;
+        const { userId, address } = req.body;
 
         if (!userId) {
-            return res
-                .status(400)
-                .json({ message: "Отсутствует идентификатор пользователя." });
+            return res.status(400).json({ message: "Отсутствует идентификатор пользователя." });
         }
 
-        const cart = await Cart.findOne({ user: userId }).populate(
-            "products.product"
-        );
+        const cart = await Cart.findOne({ user: userId }).populate("products.product");
 
         if (!cart || cart.products.length === 0) {
             return res.status(400).json({ message: "Корзина пуста." });
@@ -30,11 +26,9 @@ export const createPurchase = async (req, res) => {
         for (const item of cart.products) {
             const product = await Product.findById(item.product._id);
             if (product.stock < item.quantity) {
-                return res
-                    .status(400)
-                    .json({
-                        message: `Недостаточно товара "${product.title}" на складе.`,
-                    });
+                return res.status(400).json({
+                    message: `Недостаточно товара "${product.title}" на складе.`,
+                });
             }
         }
 
@@ -45,6 +39,7 @@ export const createPurchase = async (req, res) => {
                 quantity: item.quantity,
             })),
             totalPrice,
+            address, // Сохраняем адрес в заказе
         });
 
         await purchase.save();
@@ -79,9 +74,7 @@ export const getPurchases = async (req, res) => {
     try {
         const { userId } = req.params;
 
-        const purchases = await Purchase.find({ user: userId }).populate(
-            "products.product"
-        );
+        const purchases = await Purchase.find({ user: userId }).populate("products.product");
 
         res.json(purchases);
     } catch (error) {

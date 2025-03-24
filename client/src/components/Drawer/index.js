@@ -1,17 +1,20 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import {
     removeCartItem,
     getCart,
     checkStock,
 } from "../../redux/features/cart/cartSlice";
 import { selectUserId } from "../../redux/features/auth/authSlice";
-import { toast } from "react-toastify";
-import Info from "../Info";
-import styles from "./Drawer.module.scss";
-import { useNavigate } from "react-router-dom";
 
-import config from "../../config";
+import Info from "../Info/Info";
+
+import config from "../../utils/config";
+
+import { toast } from "react-toastify";
+import styles from "./Drawer.module.scss";
 
 const Drawer = ({ onClose, opened }) => {
     const dispatch = useDispatch();
@@ -27,14 +30,14 @@ const Drawer = ({ onClose, opened }) => {
         }
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (userId) {
             dispatch(getCart(userId));
         }
     }, [dispatch, userId]);
 
-    const [isOrderComplete, setIsOrderComplete] = useState(false);
-    const [isLoading, setIsLoading] = useState(false);
+    const [isOrderComplete, setIsOrderComplete] = React.useState(false);
+    const [isLoading, setIsLoading] = React.useState(false);
 
     const onClickOrder = async () => {
         try {
@@ -53,7 +56,7 @@ const Drawer = ({ onClose, opened }) => {
         }
     };
 
-    const handleClickOutside = useCallback(
+    const handleClickOutside = React.useCallback(
         (event) => {
             if (event.target.classList.contains(styles.overlay)) {
                 onClose();
@@ -62,7 +65,7 @@ const Drawer = ({ onClose, opened }) => {
         [onClose]
     );
 
-    const handleEscapeKey = useCallback(
+    const handleEscapeKey = React.useCallback(
         (event) => {
             if (event.key === "Escape") {
                 onClose();
@@ -71,7 +74,7 @@ const Drawer = ({ onClose, opened }) => {
         [onClose]
     );
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (opened) {
             document.addEventListener("click", handleClickOutside);
             document.addEventListener("keydown", handleEscapeKey);

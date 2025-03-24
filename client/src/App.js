@@ -1,16 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
-import Drawer from "./components/Drawer";
-import AppContext from "./context";
 import { useDispatch, useSelector } from "react-redux";
-import { getMe } from "./redux/features/auth/authSlice.js";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import ScrollToTop from "./components/ScrollToTop.js";
 
-import { HomeLayout } from "./components/Layouts/HomeLayout.jsx";
-import { MainLayout } from "./components/Layouts/MainLayout.jsx";
-import { AdminLayout } from "./components/Layouts/AdminLayout.jsx";
+import { HomeLayout } from "./Layouts/HomeLayout.jsx";
+import { MainLayout } from "./Layouts/MainLayout.jsx";
+import { AdminLayout } from "./Layouts/AdminLayout.jsx";
 
 import Main from "./pages/Main.jsx";
 import { Home } from "./pages/Home.jsx";
@@ -25,9 +19,18 @@ import Products from "./pages/Admin/AdminProducts.jsx";
 import AdminOrders from "./pages/Admin/AdminOrders.jsx";
 import Checkout from "./pages/Checkout.jsx";
 
+import Drawer from "./components/Drawer";
+import ScrollToTop from "./utils/ScrollToTop.js";
+import AppContext from "./context";
+
+import { getMe } from "./redux/features/auth/authSlice.js";
+
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
 function App() {
     const dispatch = useDispatch();
-    useEffect(() => {
+    React.useEffect(() => {
         dispatch(getMe());
     }, [dispatch]);
 
@@ -35,8 +38,8 @@ function App() {
 
     const isAdmin = user && user.role === "admin";
 
-    const [searchValue, setSearchValue] = useState("");
-    const [cartOpened, setCartOpened] = useState(false);
+    const [searchValue, setSearchValue] = React.useState("");
+    const [cartOpened, setCartOpened] = React.useState(false);
 
     const onChangeSearchInput = (event) => {
         setSearchValue(event.target.value);

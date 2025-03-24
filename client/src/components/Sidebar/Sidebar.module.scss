@@ -1,0 +1,46 @@
+.root {
+    // fixed test
+    position: fixed;
+    top: 80px; /* Высота Header */
+    left: 0;
+    bottom: 0;
+    width: 300px;
+    background-color: #f4f4f4;
+    padding: 20px;
+    overflow-y: auto;
+    // fixed test
+
+    background-color: #161d25;
+    color: rgb(225, 225, 225);
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start; // Исправлено с start на flex-start
+    padding: 20px 0px 20px 25px;
+
+    ul {
+        li {
+            margin: 20px 0px 20px 10px;
+        }
+    }
+
+    
+}
+
+.sidebarContent {
+    flex-grow: 1;
+}
+
+.sidebarTopRow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebarBtnReset {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    max-width: max-content;
+}

@@ -10,9 +10,9 @@ const initialState = {
 // Асинхронное действие для создания покупки
 export const createPurchase = createAsyncThunk(
     "purchases/createPurchase",
-    async (userId, thunkAPI) => {
+    async ({ userId, address }, thunkAPI) => {
         try {
-            const response = await axios.post("/purchases/create", { userId });
+            const response = await axios.post("/purchases/create", { userId, address });
             return response.data;
         } catch (error) {
             if (error.response && error.response.data.message) {

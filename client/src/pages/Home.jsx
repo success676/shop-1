@@ -33,18 +33,18 @@ export const Home = () => {
                     <SwiperSlide>
                         <img src="./img/swiper/1.jpg" alt="" />
                     </SwiperSlide>
-                    <SwiperSlide>
+                    {/* <SwiperSlide>
                         <img src="./img/swiper/2.jpg" alt="" />
-                    </SwiperSlide>
+                    </SwiperSlide> */}
                     <SwiperSlide>
                         <img src="./img/swiper/3.jpg" alt="" />
                     </SwiperSlide>
-                    <SwiperSlide>
+                    {/* <SwiperSlide>
                         <img src="./img/swiper/4.jpg" alt="" />
-                    </SwiperSlide>
-                    <SwiperSlide>
+                    </SwiperSlide> */}
+                    {/* <SwiperSlide>
                         <img src="./img/swiper/5.jpg" alt="" />
-                    </SwiperSlide>
+                    </SwiperSlide> */}
                     <SwiperSlide>
                         <img src="./img/swiper/6.jpg" alt="" />
                     </SwiperSlide>

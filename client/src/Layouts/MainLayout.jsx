@@ -1,6 +1,6 @@
 import React from "react";
-import { Sidebar } from "../Sidebar/Sidebar";
-import Header from "../Header/Header";
+import { Sidebar } from "../components/Sidebar/Sidebar";
+import Header from "../components/Header/Header";
 
 export const MainLayout = ({ children }) => {
     return (

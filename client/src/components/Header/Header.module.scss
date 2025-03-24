@@ -1,0 +1,109 @@
+.root {
+    // fixed test
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 80px;
+    z-index: 900;
+    // fixed test
+
+    background-color: #161d25;
+    padding: 20px 25px;
+    color: rgb(225, 225, 225);
+    img {
+        margin-right: 10px;
+    }
+    h3,
+    p {
+        margin: 0;
+    }
+}
+
+// logo test
+/* === removing default button style ===*/
+.logoBtn {
+    margin: 0;
+    height: auto;
+    background: transparent;
+    padding: 0;
+    border: none;
+    cursor: pointer;
+}
+
+/* button styling */
+.logoBtn {
+    --border-right: 6px;
+    --text-stroke-color: rgb(225, 225, 225);
+    --animation-color: #37ff8b;
+    --fs-size: 2em;
+    letter-spacing: 3px;
+    text-decoration: none;
+    font-size: var(--fs-size);
+    font-weight: 500;
+    position: relative;
+    text-transform: uppercase;
+    color: transparent;
+    color: var(--text-stroke-color);
+}
+/* this is the text, when you hover on button */
+.logoTextHover {
+    position: absolute;
+    box-sizing: border-box;
+    content: attr(data-text);
+    color: var(--animation-color);
+    width: 0%;
+    inset: 0;
+    border-right: var(--border-right) solid var(--animation-color);
+    overflow: hidden;
+    transition: 0.5s;
+    -webkit-text-stroke: 1px var(--animation-color);
+}
+/* hover */
+.logoBtn {
+    &:hover {
+        .logoTextHover {
+            width: 100%;
+            filter: drop-shadow(0 0 23px var(--animation-color));
+        }
+    }
+}
+// logo test
+
+.profileButton {
+    position: relative;
+    cursor: pointer;
+}
+
+.dropdownMenu {
+    position: absolute;
+    top: 150%;
+    right: -25px;
+    background-color: #161d25;
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 150px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dropdownItem {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.dropdownItem {
+    &:hover {
+        background-color: #393e46;
+    }
+}
+
+.dropdownItem {
+    span {
+        margin-left: 10px;
+    }
+}

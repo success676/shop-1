@@ -1,12 +1,13 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
-import { updateProduct, deleteProduct } from "../redux/features/admin/adminSlice";
 
-import config from '../config';
+import { updateProduct, deleteProduct } from "../../redux/features/admin/adminSlice";
+
+import config from '../../utils/config';
 
 const AdminEditProduct = ({ product, onClose, categories }) => {
     const dispatch = useDispatch();
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = React.useState({
         title: "",
         price: "",
         gender: "",
@@ -14,10 +15,10 @@ const AdminEditProduct = ({ product, onClose, categories }) => {
         description: "",
         stock: ""
     });
-    const [image, setImage] = useState(null);
-    const [imageUrl, setImageUrl] = useState("");
+    const [image, setImage] = React.useState(null);
+    const [imageUrl, setImageUrl] = React.useState("");
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (product) {
             setFormData(product);
             if (product.imageUrl) {

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Card from "../components/Card";
 import { Sidebar } from "../components/Sidebar/Sidebar";
-import ProductModal from "../components/ProductModal"; // Импортируем модальное окно
+import ProductModal from "../components/ProductModal/ProductModal";
 
 import { getAllProducts } from "../redux/features/product/productSlice";
 import { getAllCategories } from "../redux/features/category/categorySlice";
@@ -15,7 +15,7 @@ import {
     getFavorites,
 } from "../redux/features/favorites/favoritesSlice";
 
-import config from "../config";
+import config from "../utils/config";
 
 function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
     const dispatch = useDispatch();

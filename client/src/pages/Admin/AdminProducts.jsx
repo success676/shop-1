@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchProducts, fetchCategories } from "../../redux/features/admin/adminSlice";
-import AdminCreateProduct from "../../components/AdminCreateProduct";
-import AdminEditProduct from "../../components/AdminEditProduct";
+import AdminCreateProduct from "../../components/Admin/AdminCreateProduct";
+import AdminEditProduct from "../../components/Admin/AdminEditProduct";
 
-import config from '../../config';
+import config from '../../utils/config';
 
 const AdminProducts = () => {
     const dispatch = useDispatch();

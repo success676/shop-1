@@ -1,16 +1,16 @@
-// src/components/Sidebar/Sidebar.js
-import React, { useState } from "react";
+import React from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 
 import { toast } from "react-toastify";
 import { MdOutlineDeleteSweep } from "react-icons/md";
+import styles from './Sidebar.module.scss'
 
 export const Sidebar = ({ onFilterChange, onResetFilters }) => {
     const location = useLocation();
     const { categories } = useSelector((state) => state.categories);
 
-    const [filters, setFilters] = useState({
+    const [filters, setFilters] = React.useState({
         gender: "",
         category: "",
         subcategory: "",
@@ -41,14 +41,14 @@ export const Sidebar = ({ onFilterChange, onResetFilters }) => {
     const isMainPage = location.pathname === "/main";
 
     return (
-        <aside className="sidebar bg-sidebar">
-            <div className="sidebar-content">
+        <aside className={styles.root}>
+            <div className={styles.sidebarContent}>
                 <div className="sidebar-list">
-                    <div className="sidebar-row-btn">
+                    <div className={styles.sidebarTopRow}>
                         <span>Пол</span>
                         {isMainPage ? (
                             <div
-                                className="sidebar-btns mr-25"
+                                className={`${styles.sidebarBtnReset} mr-25`}
                                 onClick={handleResetFilters}
                             >
                                 <MdOutlineDeleteSweep size={25} />

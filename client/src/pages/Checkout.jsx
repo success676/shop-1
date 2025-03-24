@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
     createPurchase,
@@ -8,17 +8,22 @@ import { clearCart } from "../redux/features/cart/cartSlice";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import { checkIsAuth } from "../redux/features/auth/authSlice";
-import NoItems from "../components/NoItems";
+import NoItems from "../components/NoItems/NoItems";
+import config from "../utils/config";
 
-import config from "../config";
+import AddressModal from "../components/AddressModal/AddressModal";
+
+import { addAddress } from "../redux/features/address/addressSlice";
 
 const Checkout = () => {
     const isAuth = useSelector(checkIsAuth);
     const { user } = useSelector((state) => state.auth);
-    const { address } = user?.contactInfo || {};
+    const { addresses } = user?.contactInfo || {};
     const { cart, totalPrice, totalTax } = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const [selectedAddress, setSelectedAddress] = useState(null);
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
 
     if (!isAuth) {
         return (
@@ -31,14 +36,37 @@ const Checkout = () => {
     }
 
     const handlePlaceOrder = async () => {
+        if (!selectedAddress) {
+            toast.error("Пожалуйста, выберите адрес доставки.");
+            return;
+        }
+
         try {
-            await dispatch(createPurchase(user._id)).unwrap();
+            await dispatch(
+                createPurchase({ userId: user._id, address: selectedAddress })
+            ).unwrap();
             dispatch(clearCart());
             dispatch(getPurchases(user._id));
             toast.success("Заказ успешно оформлен!");
             navigate("/main");
         } catch (error) {
             toast.error("Ошибка при создании заказа");
+        }
+    };
+
+    const closeModalHandler = () => {
+        setIsModalOpen(false);
+    };
+
+    const saveNewAddressHandler = (address) => {
+        dispatch(addAddress({ userId: user._id, address }));
+    };
+
+    const openModalHandler = () => {
+        if (addresses.length >= 5) {
+            toast.error("Вы не можете добавить больше 5 адресов.");
+        } else {
+            setIsModalOpen(true);
         }
     };
 
@@ -81,34 +109,33 @@ const Checkout = () => {
                     </div>
                     <div className="address-section">
                         <h2>Адрес доставки</h2>
-                        <div>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="address"
-                                    value="saved"
-                                />
-                                Ваш сохраненный адрес
-                            </label>
-                            {address && (
-                                <div>
-                                    <p>
-                                        {address.city}, {address.state},{" "}
+                        {addresses && addresses.length > 0 ? (
+                            addresses.map((address, index) => (
+                                <div key={index}>
+                                    <label>
+                                        <input
+                                            type="radio"
+                                            name="address"
+                                            value={JSON.stringify(address)}
+                                            onChange={() =>
+                                                setSelectedAddress(address)
+                                            }
+                                        />
+                                        {address.state}, {address.city},{" "}
                                         {address.street}, {address.zip}
-                                    </p>
+                                    </label>
                                 </div>
-                            )}
-                        </div>
+                            ))
+                        ) : (
+                            <p>
+                                Нет сохраненных адресов. Пожалуйста, добавьте
+                                новый адрес.
+                            </p>
+                        )}
                         <div>
-                            <label>
-                                <input
-                                    type="radio"
-                                    name="address"
-                                    value="new"
-                                />
+                            <button onClick={openModalHandler}>
                                 Добавить новый адрес
-                            </label>
-                            {/* Form for entering new address */}
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -120,6 +147,12 @@ const Checkout = () => {
                     imageUrl="./img/sad-face3.jpg"
                 />
             )}
+
+            <AddressModal
+                isOpen={isModalOpen}
+                onClose={closeModalHandler}
+                onSave={saveNewAddressHandler}
+            />
         </div>
     );
 };

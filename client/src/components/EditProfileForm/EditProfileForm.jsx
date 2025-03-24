@@ -1,38 +1,42 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { FaUpload, FaTrash } from "react-icons/fa";
+
 import {
     addAddress,
     removeAddress,
     updateAddress,
 } from "../../redux/features/address/addressSlice";
-import AddressModal from "../AddressModal/AddressModal";
-import styles from "./EditProfileForm.module.scss";
-import { toast } from "react-toastify";
 import { updateUser } from "../../redux/features/auth/authSlice";
 import {
     uploadProfilePhoto,
     deleteProfilePhoto,
 } from "../../redux/features/profile/profileSlice";
-import config from "../../config";
+
+import AddressModal from "../AddressModal/AddressModal";
+
+import config from "../../utils/config";
+
+import { FaUpload, FaTrash } from "react-icons/fa";
+import { toast } from "react-toastify";
+import styles from "./EditProfileForm.module.scss";
 
 const EditProfileForm = () => {
     const dispatch = useDispatch();
     const { user } = useSelector((state) => state.auth);
-    const fileInputRef = useRef(null);
+    const fileInputRef = React.useRef(null);
 
-    const [formData, setFormData] = useState({
+    const [formData, setFormData] = React.useState({
         fullName: user?.contactInfo?.fullName || "",
         email: user?.contactInfo?.email || "",
         phone: user?.contactInfo?.phone || "",
         addresses: user?.contactInfo?.addresses || [],
         profilePhoto: user?.profilePhoto || "",
     });
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [selectedFile, setSelectedFile] = useState(null);
-    const [imageUrl, setImageUrl] = useState("");
+    const [isModalOpen, setIsModalOpen] = React.useState(false);
+    const [selectedFile, setSelectedFile] = React.useState(null);
+    const [imageUrl, setImageUrl] = React.useState("");
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (user) {
             setFormData({
                 fullName: user.contactInfo?.fullName || "",

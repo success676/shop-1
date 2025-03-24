@@ -1,11 +1,15 @@
-import React, { useState, useEffect, useRef } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import AppContext from "../../context";
 import { useSelector, useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import { checkIsAuth, logout } from "../../redux/features/auth/authSlice";
 import { clearCart } from "../../redux/features/cart/cartSlice";
 import { clearFavorites } from "../../redux/features/favorites/favoritesSlice";
 import { clearPurchases } from "../../redux/features/purchase/purchaseSlice";
+
+import AppContext from "../../context";
+
 import {
     MdAdminPanelSettings,
     MdAccountCircle,
@@ -18,17 +22,17 @@ import {
     MdManageAccounts,
 } from "react-icons/md";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
+import styles from "./Header.module.scss";
 
 function Header(props) {
     const { setCartOpened } = React.useContext(AppContext);
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpen, setIsMenuOpen] = React.useState(false);
     const isAuth = useSelector(checkIsAuth);
     const { user } = useSelector((state) => state.auth);
     const { totalPrice } = useSelector((state) => state.cart);
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const menuRef = useRef();
+    const menuRef = React.useRef();
 
     const logoutHandler = () => {
         dispatch(logout());
@@ -52,7 +56,7 @@ function Header(props) {
         }
     };
 
-    useEffect(() => {
+    React.useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         document.addEventListener("keydown", handleEscapeKey);
         return () => {
@@ -62,14 +66,19 @@ function Header(props) {
     }, []);
 
     return (
-        <header className="d-flex justify-between align-center header">
+        <header
+            className={`d-flex justify-between align-center ${styles.root}`}
+        >
             <div className="d-flex align-center">
                 <Link to="/home">
-                    <button className="logo__btn" data-text="Awesome">
+                    <button className={styles.logoBtn} data-text="Awesome">
                         <span className="logo__text">
                             &nbsp;Cailin Kelai&nbsp;
                         </span>
-                        <span aria-hidden="true" className="logo__text-hover">
+                        <span
+                            aria-hidden="true"
+                            className={styles.logoTextHover}
+                        >
                             &nbsp;Cailin&nbsp;Kelai&nbsp;
                         </span>
                     </button>
@@ -109,30 +118,30 @@ function Header(props) {
                             </li>
                         </Link>
                         <li
-                            className="d-flex align-center profile-button"
+                            className={`d-flex align-center ${styles.profileButton}`}
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
                             ref={menuRef}
                         >
                             <MdAccountCircle className="mr-10" size={25} />
                             <p>Профиль</p>
                             {isMenuOpen && (
-                                <div className="dropdown-menu">
+                                <div className={styles.dropdownMenu}>
                                     <Link
                                         to="/profile"
-                                        className="dropdown-item"
+                                        className={styles.dropdownItem}
                                     >
                                         <MdManageAccounts size={20} />
                                         <span>Аккаунт</span>
                                     </Link>
                                     <Link
                                         to="/orders"
-                                        className="dropdown-item"
+                                        className={styles.dropdownItem}
                                     >
                                         <MdCreditScore size={20} />
                                         <span>Мои заказы</span>
                                     </Link>
                                     <div
-                                        className="dropdown-item"
+                                        className={styles.dropdownItem}
                                         onClick={logoutHandler}
                                     >
                                         <MdLogout size={20} />
