@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { addToCart, removeCartItem, getCart } from "../controllers/cart.js";
+import { addToCart, removeCartItem, getCart, updateCartItemQuantity } from "../controllers/cart.js";
 import { checkAuth } from "../utils/checkAuth.js";
 
 const router = new Router();
@@ -15,5 +15,7 @@ router.post("/removeCartItem", removeCartItem);
 // Получение корзины пользователя
 // http://localhost:3002/api/cart
 router.get("/:userId", checkAuth, getCart); // test нужен ли тут checkAuth???
+
+router.post("/updateQuantity", updateCartItemQuantity);
 
 export default router;

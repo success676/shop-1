@@ -7,9 +7,9 @@ import { MainLayout } from "./Layouts/MainLayout.jsx";
 import { AdminLayout } from "./Layouts/AdminLayout.jsx";
 
 import Main from "./pages/Main.jsx";
-import { Home } from "./pages/Home.jsx";
+import { Home } from "./pages/Home/Home.jsx";
 import Favorites from "./pages/Favorites";
-import Orders from "./pages/Orders";
+import Orders from "./pages/Orders/Orders.jsx";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import Profile from "./pages/Profile.jsx";
@@ -17,7 +17,7 @@ import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
 import Users from "./pages/Admin/AdminUsers.jsx";
 import Products from "./pages/Admin/AdminProducts.jsx";
 import AdminOrders from "./pages/Admin/AdminOrders.jsx";
-import Checkout from "./pages/Checkout.jsx";
+import Checkout from "./pages/Checkout/Checkout.jsx";
 
 import Drawer from "./components/Drawer";
 import ScrollToTop from "./utils/ScrollToTop.js";

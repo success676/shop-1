@@ -46,6 +46,28 @@ export const removeCartItem = createAsyncThunk(
     }
 );
 
+export const updateCartItemQuantity = createAsyncThunk(
+    "cart/updateCartItemQuantity",
+    async ({ userId, productId, quantity }, { dispatch }) => {
+        try {
+            const { data } = await axios.post("/cart/updateQuantity", {
+                userId,
+                productId,
+                quantity,
+            });
+            dispatch(getCart(userId));
+            return data;
+        } catch (error) {
+            if (error.response && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Ошибка обновления количества товара.");
+            }
+            throw error;
+        }
+    }
+);
+
 export const getCart = createAsyncThunk("cart/getCart", async (userId) => {
     try {
         const { data } = await axios.get(`/cart/${userId}`);
@@ -58,8 +80,6 @@ export const getCart = createAsyncThunk("cart/getCart", async (userId) => {
 export const clearCart = createAsyncThunk("cart/clearCart", async () => {
     return {};
 });
-
-// cartSlice.js
 
 export const checkStock = createAsyncThunk(
     "cart/checkStock",
@@ -82,14 +102,13 @@ export const checkStock = createAsyncThunk(
     }
 );
 
-
 const cartSlice = createSlice({
     name: "cart",
     initialState,
     reducers: {
         calculateTotals: (state) => {
             state.totalPrice = state.cart.reduce(
-                (total, item) => total + item.product.price,
+                (total, item) => total + item.product.price * item.quantity,
                 0
             );
             state.totalTax = (state.totalPrice * 0.05).toFixed(2); // 5% налог
@@ -120,6 +139,19 @@ const cartSlice = createSlice({
                 cartSlice.caseReducers.calculateTotals(state);
             })
             .addCase(removeCartItem.rejected, (state) => {
+                state.loading = false;
+            })
+
+            // Update Cart Item Quantity
+            .addCase(updateCartItemQuantity.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(updateCartItemQuantity.fulfilled, (state, action) => {
+                state.loading = false;
+                state.cart = action.payload.products;
+                cartSlice.caseReducers.calculateTotals(state);
+            })
+            .addCase(updateCartItemQuantity.rejected, (state) => {
                 state.loading = false;
             })
 

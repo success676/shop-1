@@ -16,6 +16,7 @@ function Card({
     loading,
     isOrderPage,
     onClick,
+    quantity, // Добавлен пропс для количества
 }) {
     const { loading: productsLoading } = useSelector((state) => state.products);
 
@@ -94,6 +95,9 @@ function Card({
                         <div className="d-flex flex-column">
                             <span>Цена:</span>
                             <b>{price} руб.</b>
+                            {isOrderPage && quantity && ( // Отображение количества, если это страница заказов
+                                <span>Количество: {quantity}</span>
+                            )}
                         </div>
                         {!isOrderPage && (
                             <img

@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import Card from "../components/Card";
-import { Sidebar } from "../components/Sidebar/Sidebar";
 import ProductModal from "../components/ProductModal/ProductModal";
+import { Sidebar } from "../components/Sidebar/Sidebar";
 
 import { getAllProducts } from "../redux/features/product/productSlice";
 import { getAllCategories } from "../redux/features/category/categorySlice";
@@ -31,7 +31,7 @@ function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
         subcategory: "",
     });
     const [currentFilters, setCurrentFilters] = useState([]);
-    const [selectedProduct, setSelectedProduct] = useState(null); // Состояние для выбранного продукта
+    const [selectedProduct, setSelectedProduct] = useState(null);
 
     const filterLabels = {
         gender: {
@@ -172,7 +172,7 @@ function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
                         imageUrl={`${config.apiUrl}/${config.imgGoods}/${product.imageUrl}`}
                         onFavorite={() => handleAddToFavorite(product._id)}
                         onPlus={() => handleAddToCart(product._id)}
-                        onClick={() => handleOpenModal(product)} // Обработчик для открытия модального окна
+                        onClick={() => handleOpenModal(product)}
                         isItemAdded={cart.some(
                             (item) => item.product._id === product._id
                         )}
@@ -233,6 +233,9 @@ function Main({ searchValue, setSearchValue, onChangeSearchInput }) {
                     onClose={handleCloseModal}
                     onAddToCart={handleAddToCart}
                     loading={loading[selectedProduct._id]}
+                    isInCart={cart.some(
+                        (item) => item.product._id === selectedProduct._id
+                    )}
                 />
             )}
         </div>

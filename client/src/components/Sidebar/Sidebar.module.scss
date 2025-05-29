@@ -1,30 +1,41 @@
 .root {
-    // fixed test
-    position: fixed;
-    top: 80px; /* Высота Header */
-    left: 0;
-    bottom: 0;
-    width: 300px;
-    background-color: #f4f4f4;
-    padding: 20px;
-    overflow-y: auto;
-    // fixed test
-
     background-color: #161d25;
     color: rgb(225, 225, 225);
     height: calc(100vh - 80px);
     display: flex;
     flex-direction: column;
-    justify-content: flex-start; // Исправлено с start на flex-start
+    justify-content: flex-start;
     padding: 20px 0px 20px 25px;
+    width: 300px;
+    position: fixed;
+    left: 0;
+    top: 80px;
+    overflow-y: auto;
+    transition: transform 0.3s ease;
+    z-index: 100;
+
+    @media (max-width: 992px) {
+        width: 250px;
+    }
+
+    @media (max-width: 768px) {
+        transform: translateX(-100%);
+        width: 280px;
+        top: 0;
+        height: 100vh;
+        padding-top: 100px;
+
+        &.mobileOpen {
+            transform: translateX(0);
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.2);
+        }
+    }
 
     ul {
         li {
             margin: 20px 0px 20px 10px;
         }
     }
-
-    
 }
 
 .sidebarContent {
@@ -43,4 +54,42 @@
     gap: 10px;
     cursor: pointer;
     max-width: max-content;
+    color: #fff;
+
+    &:hover {
+        color: #ccc;
+    }
+}
+
+.mobileMenuButton {
+    display: none;
+    position: fixed;
+    top: 90px;
+    left: 20px;
+    z-index: 101;
+    background: #161d25;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px;
+    cursor: pointer;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
+}
+
+.overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 99;
+    display: none;
+
+    @media (max-width: 768px) {
+        display: block;
+    }
 }

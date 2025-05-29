@@ -81,6 +81,49 @@ export const removeCartItem = async (req, res) => {
     }
 };
 
+export const updateCartItemQuantity = async (req, res) => {
+    try {
+        const { userId, productId, quantity } = req.body;
+
+        const cart = await Cart.findOne({ user: userId });
+
+        if (!cart) {
+            return res.status(404).json({ message: "Корзина не найдена." });
+        }
+
+        const product = await Product.findById(productId);
+
+        if (!product) {
+            return res.status(404).json({ message: "Продукт не найден." });
+        }
+
+        if (quantity > product.stock) {
+            return res.status(400).json({
+                message: `Недостаточно товара "${product.title}" на складе.`,
+            });
+        }
+
+        const existingProduct = cart.products.find(
+            (item) => item.product.toString() === productId
+        );
+
+        if (existingProduct) {
+            existingProduct.quantity = quantity;
+        } else {
+            cart.products.push({ product: productId, quantity });
+        }
+
+        await cart.save();
+
+        res.json(cart);
+    } catch (error) {
+        res.status(500).json({
+            message: "Ошибка обновления количества товара.",
+            error,
+        });
+    }
+};
+
 export const getCart = async (req, res) => {
     try {
         const { userId } = req.params;

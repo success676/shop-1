@@ -1,0 +1,135 @@
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: #fff;
+}
+
+.header {
+    margin-bottom: 40px;
+}
+
+.title {
+    font-size: 24px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin: 0 !important;
+}
+
+.ordersContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.orderContainer {
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    border: 1px solid #eaeff5;
+}
+
+.orderHeader {
+    padding: 20px;
+    background-color: #f9fbfd;
+    border-bottom: 1px solid #eaeff5;
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.orderInfo {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.infoItem {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+    color: #4a5568;
+
+    .icon {
+        color: #718096;
+    }
+}
+
+.addressInfo {
+    background-color: #fff;
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #eaeff5;
+    min-width: 250px;
+}
+
+.addressTitle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 16px;
+    margin: 0 0 10px 0;
+    color: #2d3748;
+
+    .icon {
+        color: #3498db;
+    }
+}
+
+.addressText {
+    margin: 0;
+    font-size: 14px;
+    color: #4a5568;
+    line-height: 1.4;
+}
+
+.productsHeader {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px;
+    background-color: #fff;
+    border-bottom: 1px solid #eaeff5;
+
+    h3 {
+        margin: 0;
+        font-size: 18px;
+        color: #2d3748;
+    }
+
+    .icon {
+        color: #3498db;
+    }
+}
+
+.productsList {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+    background-color: #fff;
+}
+
+.noProducts {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+    color: #718096;
+    font-size: 14px;
+}
+
+@media (max-width: 768px) {
+    .orderHeader {
+        flex-direction: column;
+    }
+    
+    .addressInfo {
+        width: 100%;
+    }
+    
+    .productsList {
+        justify-content: center;
+    }
+}

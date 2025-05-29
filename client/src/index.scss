@@ -287,15 +287,7 @@ body {
     margin-top: 80px;
 }
 
-.home-page {
-    background-color: #fff;
-}
-
-.home-page-swiper {
-    height: calc(100vh - 80px);
-}
-
-// swiper
+// home swiper
 .swiper {
     width: 100%;
     height: 100%;
@@ -329,177 +321,13 @@ body {
 .swiper-pagination-bullet-active {
     background: #37ff8b !important;
 }
-// swiper
+// home swiper
 
 .container {
     max-width: 1180px;
     padding-left: 10px;
     padding-right: 10px;
     margin: 0 auto;
-}
-
-.about-sec {
-    background-color: #f8f8f8;
-    padding: 40px 40px 60px 40px;
-    .about-us {
-        h2 {
-            font-size: 45px;
-            text-align: center;
-            margin-top: 0;
-        }
-    }
-}
-
-.faq {
-    margin-bottom: 60px;
-}
-
-.about-us p {
-    width: 700px;
-    margin: 0 auto;
-    text-align: center;
-}
-
-.loyalty h2 {
-    font-size: 45px;
-    margin-bottom: 20px;
-    text-align: center;
-}
-
-.faq h2 {
-    font-size: 45px;
-    margin-bottom: 20px;
-    text-align: center;
-    margin-top: 0;
-}
-
-.about-us p {
-    font-size: 18px;
-    line-height: 1.5;
-}
-
-.faq-item {
-    margin-bottom: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
-
-.faq-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px;
-    cursor: pointer;
-    background-color: #f8f8f8;
-}
-.faq-header h3 {
-    font-size: 18px;
-    margin: 0;
-}
-.faq-header span {
-    font-size: 20px;
-    font-weight: bold;
-}
-.faq-content {
-    padding: 10px;
-    border-top: 1px solid #ccc;
-}
-.faq-content p {
-    font-size: 16px;
-    line-height: 1.5;
-}
-
-.marquee {
-    position: relative;
-    width: 100vw;
-    max-width: 100%;
-    height: 200px;
-    overflow-x: hidden;
-
-    .track {
-        position: absolute;
-        white-space: nowrap;
-        will-change: transform;
-        animation: marquee 32s linear infinite;
-
-        .content {
-            font-size: 100px;
-        }
-    }
-}
-
-@keyframes marquee {
-    from {
-        transform: translateX(0);
-    }
-    to {
-        transform: translateX(-50%);
-    }
-}
-
-.call-to-action {
-    background-color: #f8f8f8;
-    padding: 40px;
-    text-align: center;
-    padding-bottom: 90px;
-
-    h2 {
-        font-size: 45px;
-        margin-bottom: 20px;
-    }
-
-    p {
-        font-size: 18px;
-        line-height: 1.5;
-        margin-bottom: 20px;
-    }
-
-    .cta-button {
-        display: inline-block;
-        padding: 10px 20px;
-        background-color: #161d25;
-        color: #ffffff;
-        text-decoration: none;
-        border-radius: 5px;
-        font-size: 16px;
-        font-weight: bold;
-    }
-
-    .cta-button:hover {
-        background-color: #333;
-    }
-}
-
-.orders-container {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-}
-
-.order-container {
-    border: 1px solid #ccc;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.order-container h2 {
-    margin-top: 0;
-    font-size: 1.2em;
-    color: #333;
-}
-
-.order-container h3 {
-    margin-top: 10px;
-    font-size: 1em;
-    color: #555;
-}
-
-.products-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-top: 20px;
 }
 
 /* AdminDashboard */
@@ -715,56 +543,6 @@ body {
     font-weight: bold;
 }
 
-// Checkout
-
-.checkout-page {
-    h1 {
-        text-align: center;
-        margin-bottom: 20px;
-    }
-    .checkout-page-row {
-        display: flex;
-        justify-content: center;
-        gap: 50px;
-
-        .cart-summary {
-            background-color: #efefef;
-            border-radius: 10px;
-            width: 600px;
-            padding: 20px;
-
-            .cartItemImg {
-                height: 100px;
-                width: 100px;
-                background-size: contain;
-                background-repeat: no-repeat;
-                margin-right: 20px;
-            }
-
-            .cart-summary-desc {
-                max-width: 300px;
-            }
-            .button-container {
-                display: flex;
-                justify-content: center;
-                margin-top: 20px;
-            }
-            .greenButton {
-                width: 245px;
-            }
-        }
-
-        .address-section {
-            background-color: #efefef;
-            border-radius: 10px;
-            width: 600px;
-            padding: 20px;
-        }
-    }
-}
-
-// Checkout
-
 .modal {
     display: flex;
     justify-content: center;
@@ -852,3 +630,114 @@ body {
 .form-buttons button:hover {
     opacity: 0.9;
 }
+
+
+
+
+
+
+// main layout test
+.main-layout {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+}
+
+.layout-container {
+    display: flex;
+    flex: 1;
+    margin-top: 80px; // Высота хедера
+    position: relative;
+}
+
+.main-content {
+    flex: 1;
+    padding: 20px;
+    transition: margin-left 0.3s ease;
+    margin-left: 300px;
+    background-color: #fff;
+    min-height: calc(100vh - 80px);
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+
+    @media (max-width: 992px) {
+        margin-left: 250px;
+    }
+
+    @media (max-width: 768px) {
+        margin-left: 0;
+        padding-top: 70px;
+    }
+}
+// main layout test
+
+
+
+//main test
+
+// Main.scss
+.all-pages {
+    background-color: white;
+    min-height: calc(100vh - 80px);
+}
+
+.main-page {
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+}
+
+.search-block {
+    border: 1px solid #f3f3f3;
+    border-radius: 10px;
+    padding: 0 15px;
+    position: relative;
+
+    .clear {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        top: 13px;
+        right: 15px;
+    }
+
+    input {
+        border: 0;
+        padding: 13px;
+        font-size: 16px;
+        width: 200px;
+    }
+}
+
+.card-render {
+    justify-content: space-evenly;
+}
+
+@media (max-width: 768px) {
+    .main-page {
+        .content {
+            padding: 15px;
+        }
+
+        .d-flex.align-center.justify-between.mb-40 {
+            flex-direction: column;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+
+        .search-block {
+            margin-top: 15px;
+            width: 100%;
+
+            input {
+                width: 100%;
+            }
+        }
+
+        .card-render {
+            justify-content: center;
+            gap: 20px;
+        }
+    }
+}
+//

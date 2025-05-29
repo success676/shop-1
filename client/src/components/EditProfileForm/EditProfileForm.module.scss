@@ -1,268 +1,396 @@
 .root {
-    max-width: 1000px;
+    max-width: 1200px;
     margin: 0 auto;
     padding: 30px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background-color: #f9f9f9;
-    box-shadow: 0px 20px 35px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+
+    .title {
+        font-size: 24px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 30px;
+        text-align: center;
+    }
 
     .row {
         display: flex;
-        justify-content: space-between;
+        gap: 30px;
+
+        @media (max-width: 992px) {
+            flex-direction: column;
+        }
     }
 
-    .btnsRow {
+    .sectionTitle {
         display: flex;
-        gap: 20px;
-    }
+        align-items: center;
+        font-size: 18px;
+        font-weight: 600;
+        color: #2c3e50;
+        margin-bottom: 20px;
 
-    .btnAdd {
-        margin-left: 20px;
-        width: 30px;
-        height: 30px;
-        background-color: #28a745;
-        border-radius: 10px;
-        border: 0;
-        color: #fff;
-        font-size: 16px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background 0.1s ease-in-out;
-
-        &:disabled {
-            background-color: #bebebe !important;
-            cursor: default;
-        }
-
-        &:hover {
-            background: lighten(#246733, 5%);
-        }
-
-        &:active {
-            background: darken(#10c039, 5%);
+        .icon {
+            margin-right: 10px;
+            color: #3498db;
         }
     }
 
-    .btnSave {
-        padding: 10px 20px;
-        background-color: #28a745;
-        border-radius: 15px;
-        border: 0;
-        color: #fff;
-        font-size: 16px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background 0.1s ease-in-out;
+    // Контактные данные
+    .contactDetails {
+        flex: 1;
+        max-width: 400px;
 
-        &:disabled {
-            background-color: #bebebe !important;
-            cursor: default;
+        @media (max-width: 992px) {
+            max-width: 100%;
         }
-
-        &:hover {
-            background: lighten(#246733, 5%);
-        }
-
-        &:active {
-            background: darken(#10c039, 5%);
-        }
-    }
-
-    .btnRemove {
-        padding: 10px 20px;
-        background-color: #dc3545;
-        border-radius: 15px;
-        border: 0;
-        color: #fff;
-        font-size: 16px;
-        font-weight: 500;
-        cursor: pointer;
-        transition: background 0.1s ease-in-out;
-
-        &:disabled {
-            background-color: #bebebe !important;
-            cursor: default;
-        }
-
-        &:hover {
-            background: lighten(#881d28, 5%);
-        }
-
-        &:active {
-            background: darken(#dc3545, 5%);
-        }
-    }
-
-    .btn {
-        margin: 0 auto;
-        margin-top: 50px;
-        width: 300px;
     }
 
     .profilePhotoContainer {
+        margin-bottom: 30px;
+    }
+
+    .photoWrapper {
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin-bottom: 50px;
+    }
 
-        .customFileInput {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 200px;
-            height: 50px;
-            border: 2px dashed #ccc;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
+    .placeholder {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background-color: #f5f7fa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 15px;
+        border: 2px dashed #dfe6e9;
+
+        .placeholderIcon {
+            font-size: 50px;
+            color: #bdc3c7;
+        }
+    }
+
+    .profileImage {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 15px;
+        border: 3px solid #fff;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .photoControls {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .uploadButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 8px 15px;
+        background-color: #3498db;
+        color: white;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 14px;
+        width: fit-content;
+
+        &:hover {
+            background-color: darken(#3498db, 10%);
+        }
+
+        .uploadIcon {
+            margin-right: 8px;
+        }
+    }
+
+    .actionButton {
+        padding: 8px 15px;
+        background-color: #2ecc71;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 14px;
+        width: 100%;
+        max-width: 200px;
+
+        &:hover {
+            background-color: darken(#2ecc71, 10%);
+        }
+
+        &.deleteButton {
+            background-color: #e74c3c;
 
             &:hover {
-                background-color: #f0f0f0;
-            }
-
-            svg {
-                margin-right: 10px;
-                font-size: 20px;
-            }
-
-            span {
-                font-size: 16px;
-                color: #555;
-            }
-        }
-
-        .profileImage {
-            width: 250px;
-            height: 250px;
-            border-radius: 50%;
-            object-fit: cover;
-            margin-bottom: 10px;
-            border: 1px solid #757575; /* Добавляем обводку */
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Добавляем тень для эффекта */
-        }
-
-        .photoButtons {
-            display: flex;
-            gap: 10px;
-            margin-top: 10px;
-
-            .iconButton {
-                background: none;
-                border: none;
-                cursor: pointer;
-                font-size: 20px;
-            }
-
-            .uploadBtn {
-                color: #28a745;
-
-                &:hover {
-                    color: lighten(#246733, 5%);
-                }
-
-                &:active {
-                    color: darken(#10c039, 5%);
-                }
-            }
-
-            .deleteBtn {
-                color: #dc3545;
-
-                &:hover {
-                    color: lighten(#881d28, 5%);
-                }
-
-                &:active {
-                    color: darken(#dc3545, 5%);
-                }
+                background-color: darken(#e74c3c, 10%);
             }
         }
     }
-}
 
-.contactDetails {
-    p {
-        font-size: 20px;
-        margin: 0;
-        margin-bottom: 20px;
+    .contactForm {
+        background-color: #f9fbfd;
+        padding: 20px;
+        border-radius: 12px;
+        border: 1px solid #eaeff5;
     }
 
     .formGroup {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
+    }
 
-        label {
-            font-weight: bold;
-            color: #333;
+    .inputLabel {
+        display: block;
+        margin-bottom: 5px;
+
+        span {
+            display: flex;
+            align-items: center;
+            font-size: 14px;
+            font-weight: 500;
+            color: #4a5568;
+            margin-bottom: 5px;
         }
 
+        .inputIcon {
+            margin-right: 8px;
+            color: #718096;
+            font-size: 14px;
+        }
+    }
+
+    .inputWrapper {
         input {
             width: 100%;
-            padding: 10px;
-            box-sizing: border-box;
-            border: 1px solid #ccc;
-            border-radius: 5px;
-            margin-top: 5px;
+            padding: 10px 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.2s;
+            background-color: #fff;
+
+            &:focus {
+                border-color: #3498db;
+                box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
+                outline: none;
+            }
+
+            &::placeholder {
+                color: #a0aec0;
+            }
         }
     }
-}
 
-.addressTitle {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-
-    p {
-        font-size: 20px;
-        margin: 0;
+    // Адреса
+    .addressSection {
+        flex: 1;
+        min-width: 0;
     }
-}
 
-.addressContainer {
-    max-height: 840px;
-    width: 400px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    box-shadow: 0px 20px 35px rgba(0, 0, 0, 0.06);
-    border-radius: 10px;
-    padding: 20px 15px;
+    .addressHeader {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 20px;
+    }
 
-    .addressItem {
-        margin-bottom: 40px;
+    .addButton {
+        padding: 8px 15px;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 14px;
+        display: flex;
+        align-items: center;
 
-        h4 {
-            margin-top: 0;
+        &:hover {
+            background-color: darken(#3498db, 10%);
+        }
+    }
+
+    .addressContainer {
+        background-color: #f9fbfd;
+        border-radius: 12px;
+        border: 1px solid #eaeff5;
+        padding: 20px;
+        max-height: 600px;
+        overflow-y: auto;
+
+        &::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background: #cbd5e0;
+            border-radius: 10px;
+        }
+
+        &::-webkit-scrollbar-thumb:hover {
+            background: #a0aec0;
+        }
+    }
+
+    .emptyState {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 40px 20px;
+        text-align: center;
+
+        .emptyIcon {
+            font-size: 40px;
+            color: #cbd5e0;
+            margin-bottom: 15px;
+        }
+
+        p {
+            color: #718096;
             margin-bottom: 20px;
         }
+    }
+
+    .addressCard {
+        background-color: #fff;
+        border-radius: 10px;
+        padding: 15px;
+        margin-bottom: 15px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        border: 1px solid #edf2f7;
 
         &:last-child {
             margin-bottom: 0;
         }
+
+        .addressHeader {
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #edf2f7;
+
+            h4 {
+                margin: 0;
+                font-size: 16px;
+                color: #2d3748;
+            }
+        }
+
+        .addressActions {
+            display: flex;
+            gap: 10px;
+        }
+
+        .saveButton {
+            padding: 5px 10px;
+            background-color: #2ecc71;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+
+            &:hover {
+                background-color: darken(#2ecc71, 10%);
+            }
+        }
+
+        .removeButton {
+            padding: 5px 10px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 13px;
+
+            &:hover {
+                background-color: darken(#e74c3c, 10%);
+            }
+        }
+
+        .addressForm {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+
+            @media (max-width: 576px) {
+                grid-template-columns: 1fr;
+            }
+
+            .formGroup {
+                margin-bottom: 0;
+
+                label {
+                    span {
+                        font-size: 13px;
+                        color: #4a5568;
+                        margin-bottom: 4px;
+                    }
+                }
+
+                input {
+                    width: 100%;
+                    padding: 8px 10px;
+                    font-size: 13px;
+                    border: 1px solid #e2e8f0;
+                    border-radius: 6px;
+                    background-color: #f8fafc;
+
+                    &:focus {
+                        border-color: #3498db;
+                        background-color: #fff;
+                    }
+                }
+            }
+        }
     }
-}
 
-// Стили для скроллбара
-.addressContainer::-webkit-scrollbar {
-    width: 12px;
-}
+    // Кнопка сохранения
+    .submitSection {
+        display: flex;
+        justify-content: center;
+        margin-top: 30px;
+    }
 
-.addressContainer::-webkit-scrollbar-track {
-    background: #f1f1f1;
-    border-radius: 10px;
-}
+    .submitButton {
+        padding: 12px 30px;
+        background-color: #2ecc71;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: all 0.2s;
+        font-size: 16px;
+        font-weight: 500;
+        box-shadow: 0 2px 10px rgba(46, 204, 113, 0.3);
 
-.addressContainer::-webkit-scrollbar-thumb {
-    background: #888;
-    border-radius: 10px;
-    border: 3px solid #f1f1f1;
-}
+        &:hover {
+            background-color: darken(#2ecc71, 8%);
+            transform: translateY(-2px);
+        }
 
-.addressContainer::-webkit-scrollbar-thumb:hover {
-    background: #555;
-}
-
-.addressContainer {
-    scrollbar-width: thin;
-    scrollbar-color: #888 #f1f1f1;
+        &:active {
+            transform: translateY(0);
+        }
+    }
 }

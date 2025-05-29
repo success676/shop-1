@@ -63,7 +63,7 @@ export const login = async (req, res) => {
         const isPasswordCorrect = await bcrypt.compare(password, user.password);
 
         if (!isPasswordCorrect) {
-            return res.json({ message: "Неверный пароль." });
+            return res.json({ message: "Неверный логин или пароль." });
         }
 
         const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {

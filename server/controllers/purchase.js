@@ -22,6 +22,9 @@ export const createPurchase = async (req, res) => {
             0
         );
 
+        const totalTax = (totalPrice * 0.05).toFixed(2); // 5% налог
+        const totalAmount = Number(totalPrice) + Number(totalTax);
+
         // Проверка наличия товара на складе
         for (const item of cart.products) {
             const product = await Product.findById(item.product._id);
@@ -38,7 +41,7 @@ export const createPurchase = async (req, res) => {
                 product: item.product._id,
                 quantity: item.quantity,
             })),
-            totalPrice,
+            totalPrice: totalAmount, // Сохраняем общую сумму с учетом налога
             address, // Сохраняем адрес в заказе
         });
 

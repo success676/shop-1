@@ -6,6 +6,7 @@ import {
     removeCartItem,
     getCart,
     checkStock,
+    updateCartItemQuantity,
 } from "../../redux/features/cart/cartSlice";
 import { selectUserId } from "../../redux/features/auth/authSlice";
 
@@ -25,6 +26,15 @@ const Drawer = ({ onClose, opened }) => {
     const handleRemoveFromCart = (productId) => {
         if (userId) {
             dispatch(removeCartItem({ userId, productId }));
+        } else {
+            toast.error("Пользователь не авторизован");
+        }
+    };
+
+    const handleQuantityChange = (productId, newQuantity) => {
+        if (newQuantity < 1) return;
+        if (userId) {
+            dispatch(updateCartItemQuantity({ userId, productId, quantity: newQuantity }));
         } else {
             toast.error("Пользователь не авторизован");
         }
@@ -104,24 +114,42 @@ const Drawer = ({ onClose, opened }) => {
                 </h2>
 
                 {cart.length > 0 ? (
-                    <div className="d-flex flex-column flex">
-                        <div className="items flex">
+                    <div className={styles.cartWrapper}>
+                        <div className={styles.itemsWrapper}>
                             {cart.map((item, index) => (
                                 <div
                                     key={index}
-                                    className="cartItem d-flex align-center mb-20"
+                                    className={`${styles.cartItem} d-flex align-center mb-20`}
                                 >
                                     <div
                                         style={{
                                             backgroundImage: `url(${config.apiUrl}/${config.imgGoods}/${item.product.imageUrl})`,
                                         }}
-                                        className="cartItemImg"
+                                        className={styles.cartItemImg}
                                     ></div>
-                                    <div className="mr-20 flex">
+                                    <div className={`${styles.cartItemInfo} mr-20 flex`}>
                                         <p className="mb-5">
                                             {item.product.title}
                                         </p>
                                         <b>{item.product.price} руб.</b>
+                                        <div className={styles.quantityControl}>
+                                            <button 
+                                                className={styles.quantityButton}
+                                                onClick={() => handleQuantityChange(item.product._id, item.quantity - 1)}
+                                                disabled={item.quantity <= 1}
+                                            >
+                                                -
+                                            </button>
+                                            <span className={styles.quantityValue}>
+                                                {item.quantity}
+                                            </span>
+                                            <button 
+                                                className={styles.quantityButton}
+                                                onClick={() => handleQuantityChange(item.product._id, item.quantity + 1)}
+                                            >
+                                                +
+                                            </button>
+                                        </div>
                                     </div>
                                     <img
                                         onClick={() =>
@@ -129,17 +157,17 @@ const Drawer = ({ onClose, opened }) => {
                                                 item.product._id
                                             )
                                         }
-                                        className="removeBtn"
+                                        className={styles.removeBtn}
                                         src="./img/btn-remove.svg"
                                         alt="Remove"
                                     />
                                 </div>
                             ))}
                         </div>
-                        <div className="cartTotalBlock">
+                        <div className={styles.cartTotalBlock}>
                             <ul>
                                 <li>
-                                    <span>Итого:</span>
+                                    <span>Сумма:</span>
                                     <div></div>
                                     <b>{totalPrice} руб.</b>
                                 </li>
@@ -148,11 +176,19 @@ const Drawer = ({ onClose, opened }) => {
                                     <div></div>
                                     <b>{totalTax} руб.</b>
                                 </li>
+                                <li>
+                                    <span>Итого:</span>
+                                    <div></div>
+                                    <b>
+                                        {Number(totalPrice) + Number(totalTax)}{" "}
+                                        руб.
+                                    </b>
+                                </li>
                             </ul>
                             <button
                                 disabled={isLoading}
                                 onClick={onClickOrder}
-                                className="greenButton"
+                                className={styles.greenButton}
                             >
                                 Оформить заказ{" "}
                                 <img src="./img/arrow.svg" alt="Arrow" />

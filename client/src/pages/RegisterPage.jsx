@@ -21,6 +21,11 @@ export const RegisterPage = () => {
     }, [status, isAuth, navigate]);
 
     const handleSubmit = () => {
+        if (!username || !password) {
+            toast.error("Пожалуйста, введите имя пользователя и пароль.");
+            return;
+        }
+
         try {
             dispatch(registerUser({ username, password }));
             setPassword("");

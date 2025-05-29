@@ -1,6 +1,5 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-
 import {
     addAddress,
     removeAddress,
@@ -11,12 +10,16 @@ import {
     uploadProfilePhoto,
     deleteProfilePhoto,
 } from "../../redux/features/profile/profileSlice";
-
 import AddressModal from "../AddressModal/AddressModal";
-
 import config from "../../utils/config";
-
-import { FaUpload, FaTrash } from "react-icons/fa";
+import {
+    FaUpload,
+    FaTrash,
+    FaUser,
+    FaEnvelope,
+    FaPhone,
+    FaMapMarkerAlt,
+} from "react-icons/fa";
 import { toast } from "react-toastify";
 import styles from "./EditProfileForm.module.scss";
 
@@ -88,6 +91,7 @@ const EditProfileForm = () => {
                     ...formData,
                     addresses: result.payload.contactInfo.addresses,
                 });
+                toast.success("Адрес успешно добавлен");
             }
         });
     };
@@ -107,6 +111,7 @@ const EditProfileForm = () => {
                         ...formData,
                         addresses: result.payload.contactInfo.addresses,
                     });
+                    toast.success("Адрес успешно обновлен");
                 }
             });
         } else {
@@ -117,6 +122,7 @@ const EditProfileForm = () => {
                             ...formData,
                             addresses: result.payload.contactInfo.addresses,
                         });
+                        toast.success("Адрес успешно добавлен");
                     }
                 }
             );
@@ -132,6 +138,7 @@ const EditProfileForm = () => {
                         ...formData,
                         addresses: result.payload.contactInfo.addresses,
                     });
+                    toast.success("Адрес успешно удален");
                 }
             }
         );
@@ -140,6 +147,14 @@ const EditProfileForm = () => {
     const handleFileChange = (e) => {
         const file = e.target.files[0];
         if (file) {
+            if (file.size > 2 * 1024 * 1024) {
+                toast.error("Файл слишком большой (максимум 2MB)");
+                return;
+            }
+            if (!file.type.match("image.*")) {
+                toast.error("Пожалуйста, выберите изображение");
+                return;
+            }
             setSelectedFile(file);
             setImageUrl(URL.createObjectURL(file));
         }
@@ -165,8 +180,6 @@ const EditProfileForm = () => {
                 }));
                 setImageUrl("");
                 setSelectedFile(null);
-
-                // Сброс значения input type="file"
                 fileInputRef.current.value = "";
             } else {
                 toast.error("Ошибка при загрузке фото профиля.");
@@ -208,180 +221,267 @@ const EditProfileForm = () => {
 
     return (
         <form onSubmit={handleSubmit} className={styles.root}>
+            <h2 className={styles.title}>Редактирование профиля</h2>
+
             <div className={styles.row}>
                 <div className={styles.contactDetails}>
-                    <p>Фото профиля</p>
                     <div className={styles.profilePhotoContainer}>
-                        {!formData.profilePhoto && (
-                            <div
-                                className={styles.customFileInput}
-                                onClick={handleCustomButtonClick}
-                            >
-                                <FaUpload />
-                                <span>Выберите файл</span>
+                        <h3 className={styles.sectionTitle}>
+                            <FaUser className={styles.icon} /> Фото профиля
+                        </h3>
+                        <div className={styles.photoWrapper}>
+                            {!formData.profilePhoto && !imageUrl && (
+                                <div className={styles.placeholder}>
+                                    <FaUser
+                                        className={styles.placeholderIcon}
+                                    />
+                                </div>
+                            )}
+                            {(formData.profilePhoto || imageUrl) && (
+                                <img
+                                    src={
+                                        imageUrl ||
+                                        `${config.apiUrl}/${config.imgProfile}/${formData.profilePhoto}`
+                                    }
+                                    alt="Profile"
+                                    className={styles.profileImage}
+                                />
+                            )}
+                            <div className={styles.photoControls}>
+                                {!formData.profilePhoto && (
+                                    <div
+                                        className={styles.uploadButton}
+                                        onClick={handleCustomButtonClick}
+                                    >
+                                        <FaUpload
+                                            className={styles.uploadIcon}
+                                        />
+                                        <span>Загрузить</span>
+                                    </div>
+                                )}
+                                <input
+                                    type="file"
+                                    ref={fileInputRef}
+                                    onChange={handleFileChange}
+                                    accept="image/*"
+                                    style={{ display: "none" }}
+                                />
+                                {selectedFile && (
+                                    <button
+                                        type="button"
+                                        onClick={handleUpload}
+                                        className={styles.actionButton}
+                                    >
+                                        Сохранить фото
+                                    </button>
+                                )}
+                                {formData.profilePhoto && !selectedFile && (
+                                    <button
+                                        type="button"
+                                        onClick={handleDelete}
+                                        className={`${styles.actionButton} ${styles.deleteButton}`}
+                                    >
+                                        <FaTrash /> Удалить
+                                    </button>
+                                )}
                             </div>
-                        )}
-                        <input
-                            type="file"
-                            ref={fileInputRef}
-                            onChange={handleFileChange}
-                            style={{ display: "none" }}
-                        />
-                        {formData.profilePhoto && (
-                            <img
-                                src={`${config.apiUrl}/${config.imgProfile}/${formData.profilePhoto}`}
-                                alt="Profile"
-                                className={styles.profileImage}
-                            />
-                        )}
-                        {imageUrl && (
-                            <img
-                                src={imageUrl}
-                                alt="Preview"
-                                className={styles.profileImage}
-                            />
-                        )}
-                        <div className={styles.photoButtons}>
-                            {selectedFile && (
-                                <button
-                                    type="button"
-                                    onClick={handleUpload}
-                                    className={`${styles.uploadBtn} ${styles.iconButton}`}
-                                >
-                                    <FaUpload />
-                                </button>
-                            )}
-                            {formData.profilePhoto && (
-                                <button
-                                    type="button"
-                                    onClick={handleDelete}
-                                    className={`${styles.deleteBtn} ${styles.iconButton}`}
-                                >
-                                    <FaTrash />
-                                </button>
-                            )}
                         </div>
                     </div>
-                    <p>Контактные данные</p>
-                    <div className={styles.formGroup}>
-                        <label>ФИО</label>
-                        <input
-                            type="text"
-                            name="fullName"
-                            value={formData.fullName}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className={styles.formGroup}>
-                        <label>Электронная почта</label>
-                        <input
-                            type="email"
-                            name="email"
-                            value={formData.email}
-                            onChange={handleChange}
-                        />
-                    </div>
-                    <div className={styles.formGroup}>
-                        <label>Номер телефона</label>
-                        <input
-                            type="text"
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleChange}
-                        />
+
+                    <div className={styles.contactForm}>
+                        <h3 className={styles.sectionTitle}>
+                            <FaUser className={styles.icon} /> Контактные данные
+                        </h3>
+                        <div className={styles.formGroup}>
+                            <label className={styles.inputLabel}>
+                                <span>ФИО</span>
+                                <div className={styles.inputWrapper}>
+                                    <input
+                                        type="text"
+                                        name="fullName"
+                                        value={formData.fullName}
+                                        onChange={handleChange}
+                                        placeholder="Введите ваше полное имя"
+                                    />
+                                </div>
+                            </label>
+                        </div>
+                        <div className={styles.formGroup}>
+                            <label className={styles.inputLabel}>
+                                <span>
+                                    <FaEnvelope className={styles.inputIcon} />{" "}
+                                    Электронная почта
+                                </span>
+                                <div className={styles.inputWrapper}>
+                                    <input
+                                        type="email"
+                                        name="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
+                                        placeholder="example@mail.com"
+                                    />
+                                </div>
+                            </label>
+                        </div>
+                        <div className={styles.formGroup}>
+                            <label className={styles.inputLabel}>
+                                <span>
+                                    <FaPhone className={styles.inputIcon} />{" "}
+                                    Номер телефона
+                                </span>
+                                <div className={styles.inputWrapper}>
+                                    <input
+                                        type="tel"
+                                        name="phone"
+                                        value={formData.phone}
+                                        onChange={handleChange}
+                                        placeholder="+7 (XXX) XXX-XX-XX"
+                                    />
+                                </div>
+                            </label>
+                        </div>
                     </div>
                 </div>
-                <div className="profile-form-right">
-                    <div className={styles.addressTitle}>
-                        <p>Список ваших адресов</p>
+
+                <div className={styles.addressSection}>
+                    <div className={styles.addressHeader}>
+                        <h3 className={styles.sectionTitle}>
+                            <FaMapMarkerAlt className={styles.icon} /> Мои
+                            адреса
+                        </h3>
                         <button
-                            className={styles.btnAdd}
+                            className={styles.addButton}
                             type="button"
                             onClick={openModalHandler}
                         >
-                            <span>+</span>
+                            + Добавить адрес
                         </button>
                     </div>
 
                     <div className={styles.addressContainer}>
-                        {formData.addresses &&
+                        {formData.addresses.length === 0 ? (
+                            <div className={styles.emptyState}>
+                                <FaMapMarkerAlt className={styles.emptyIcon} />
+                                <p>У вас пока нет сохраненных адресов</p>
+                                <button
+                                    className={styles.addButton}
+                                    type="button"
+                                    onClick={openModalHandler}
+                                >
+                                    + Добавить первый адрес
+                                </button>
+                            </div>
+                        ) : (
                             formData.addresses.map((address, index) => (
-                                <div key={index} className={styles.addressItem}>
-                                    <h4>Адрес {index + 1}</h4>
-                                    <div className="form-group">
-                                        <label>Страна</label>
-                                        <input
-                                            type="text"
-                                            name="state"
-                                            value={address.state}
-                                            onChange={(e) =>
-                                                handleAddressChange(index, e)
-                                            }
-                                        />
+                                <div key={index} className={styles.addressCard}>
+                                    <div className={styles.addressHeader}>
+                                        <h4>Адрес {index + 1}</h4>
+                                        <div className={styles.addressActions}>
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    saveAddressHandler(index)
+                                                }
+                                                className={styles.saveButton}
+                                            >
+                                                Сохранить
+                                            </button>
+                                            <button
+                                                type="button"
+                                                onClick={() =>
+                                                    removeAddressHandler(index)
+                                                }
+                                                className={styles.removeButton}
+                                            >
+                                                Удалить
+                                            </button>
+                                        </div>
                                     </div>
-                                    <div className="form-group">
-                                        <label>Город</label>
-                                        <input
-                                            type="text"
-                                            name="city"
-                                            value={address.city}
-                                            onChange={(e) =>
-                                                handleAddressChange(index, e)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Улица</label>
-                                        <input
-                                            type="text"
-                                            name="street"
-                                            value={address.street}
-                                            onChange={(e) =>
-                                                handleAddressChange(index, e)
-                                            }
-                                        />
-                                    </div>
-                                    <div className="form-group">
-                                        <label>Номер дома</label>
-                                        <input
-                                            type="text"
-                                            name="zip"
-                                            value={address.zip}
-                                            onChange={(e) =>
-                                                handleAddressChange(index, e)
-                                            }
-                                        />
-                                    </div>
-                                    <div className={styles.btnsRow}>
-                                        <button
-                                            className={styles.btnSave}
-                                            type="button"
-                                            onClick={() =>
-                                                saveAddressHandler(index)
-                                            }
-                                        >
-                                            Сохранить
-                                        </button>
-                                        <button
-                                            className={styles.btnRemove}
-                                            type="button"
-                                            onClick={() =>
-                                                removeAddressHandler(index)
-                                            }
-                                        >
-                                            Удалить
-                                        </button>
+                                    <div className={styles.addressForm}>
+                                        <div className={styles.formGroup}>
+                                            <label>
+                                                <span>Страна</span>
+                                                <input
+                                                    type="text"
+                                                    name="state"
+                                                    value={address.state}
+                                                    onChange={(e) =>
+                                                        handleAddressChange(
+                                                            index,
+                                                            e
+                                                        )
+                                                    }
+                                                    placeholder="Россия"
+                                                />
+                                            </label>
+                                        </div>
+                                        <div className={styles.formGroup}>
+                                            <label>
+                                                <span>Город</span>
+                                                <input
+                                                    type="text"
+                                                    name="city"
+                                                    value={address.city}
+                                                    onChange={(e) =>
+                                                        handleAddressChange(
+                                                            index,
+                                                            e
+                                                        )
+                                                    }
+                                                    placeholder="Москва"
+                                                />
+                                            </label>
+                                        </div>
+                                        <div className={styles.formGroup}>
+                                            <label>
+                                                <span>Улица</span>
+                                                <input
+                                                    type="text"
+                                                    name="street"
+                                                    value={address.street}
+                                                    onChange={(e) =>
+                                                        handleAddressChange(
+                                                            index,
+                                                            e
+                                                        )
+                                                    }
+                                                    placeholder="Ленина"
+                                                />
+                                            </label>
+                                        </div>
+                                        <div className={styles.formGroup}>
+                                            <label>
+                                                <span>
+                                                    Номер дома и квартира
+                                                </span>
+                                                <input
+                                                    type="text"
+                                                    name="zip"
+                                                    value={address.zip}
+                                                    onChange={(e) =>
+                                                        handleAddressChange(
+                                                            index,
+                                                            e
+                                                        )
+                                                    }
+                                                    placeholder="10, кв. 25"
+                                                />
+                                            </label>
+                                        </div>
                                     </div>
                                 </div>
-                            ))}
+                            ))
+                        )}
                     </div>
                 </div>
             </div>
-            <div className={styles.btn}>
-                <button className="greenButton" type="submit">
-                    Сохранить профиль
+
+            <div className={styles.submitSection}>
+                <button className={styles.submitButton} type="submit">
+                    Сохранить изменения
                 </button>
             </div>
+
             <AddressModal
                 isOpen={isModalOpen}
                 onClose={closeModalHandler}
