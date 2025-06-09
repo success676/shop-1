@@ -17,21 +17,14 @@ const AdminDashboard = () => {
     if (!isAdmin) {
         return (
             <div className="content p-40 all-pages">
-                <h1>
-                    Данный функционал доступен только администраторам.
-                </h1>
+                <h1>Данный функционал доступен только администраторам.</h1>
             </div>
         );
     }
 
     return (
         <div className="content p-40 all-pages">
-            <div className="admin-dashboard">
-                <h1 className="mb-20">Аналитика</h1>
-                <div className="analytics-container">
-                    <Analytics purchases={purchases} />
-                </div>
-            </div>
+            <Analytics purchases={purchases} />
         </div>
     );
 };

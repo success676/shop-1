@@ -1,58 +1,167 @@
 .root {
     display: flex;
     flex-direction: column;
-    gap: 40px;
-    margin-bottom: 30px;
+    gap: 30px;
+    padding: 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.title {
+    font-size: 28px;
+    font-weight: 600;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.noData {
+    text-align: center;
+    padding: 40px;
+    font-size: 18px;
+    color: #7f8c8d;
+    background: #f9f9f9;
+    border-radius: 8px;
 }
 
 .analyticsSection {
     display: flex;
     flex-direction: column;
     gap: 20px;
-
+    
     h2 {
-        font-size: 24px;
-        margin-bottom: 10px;
-        color: #333;
-    }   
+        font-size: 22px;
+        font-weight: 500;
+        color: #34495e;
+        margin-bottom: 5px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #ecf0f1;
+    }
 }
 
 .analyticsCards {
-    display: flex;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 20px;
 }
 
 .analyticsCard {
-    flex: 1;
     background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    text-align: center;
-    min-width: 150px;
+    padding: 25px 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    transition: all 0.3s ease;
+    
+    &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    }
+    
+    &.today {
+        border-top: 4px solid #3498db;
+    }
+    
+    &.week {
+        border-top: 4px solid #2ecc71;
+    }
+    
+    &.month {
+        border-top: 4px solid #9b59b6;
+    }
+    
+    &.year {
+        border-top: 4px solid #34495e;
+    }
+    
+    &.revenueToday {
+        border-top: 4px solid #f39c12;
+    }
+    
+    &.revenueWeek {
+        border-top: 4px solid #1abc9c;
+    }
+    
+    &.revenueMonth {
+        border-top: 4px solid #e74c3c;
+    }
+    
+    &.revenueYear {
+        border-top: 4px solid #c0392b;
+    }
 }
 
 .analyticsItem {
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 8px;
+}
+
+.cardIconFront {
+    font-size: 24px;
+    color: currentColor;
+    margin-bottom: 10px;
+    opacity: 0.8;
 }
 
 .analyticsLabel {
-    font-size: 14px;
-    color: #777;
-    margin-bottom: 5px;
+    font-size: 15px;
+    color: #7f8c8d;
+    font-weight: 500;
 }
 
 .analyticsValue {
-    font-size: 24px;
-    font-weight: bold;
-    color: #333;
-    margin-bottom: 5px;
+    font-size: 28px;
+    font-weight: 700;
+    color: #2c3e50;
+    margin: 5px 0;
 }
 
 .analyticsSubtext {
     font-size: 14px;
-    color: #777;
+    color: #95a5a6;
+}
+
+@media (max-width: 768px) {
+    .root {
+        padding: 15px;
+        gap: 25px;
+    }
+    
+    .title {
+        font-size: 24px;
+    }
+    
+    .analyticsCards {
+        grid-template-columns: 1fr 1fr;
+    }
+    
+    .analyticsCard {
+        padding: 20px 15px;
+    }
+    
+    .analyticsValue {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 480px) {
+    .root {
+        padding: 10px;
+    }
+    
+    .analyticsSection h2 {
+        font-size: 20px;
+    }
+    
+    .analyticsCards {
+        grid-template-columns: 1fr;
+    }
+    
+    .analyticsLabel {
+        font-size: 14px;
+    }
+    
+    .analyticsValue {
+        font-size: 22px;
+    }
 }

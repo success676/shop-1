@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Card from "../components/Card";
 import ProductModal from "../components/ProductModal/ProductModal";
@@ -18,16 +18,16 @@ function Favorites() {
     const userId = useSelector(selectUserId);
     const { favorites } = useSelector((state) => state.favorites);
     const { cart } = useSelector((state) => state.cart);
-    const [loading, setLoading] = useState({});
-    const [selectedProduct, setSelectedProduct] = useState(null); // Состояние для выбранного продукта
+    const [loading, setLoading] = React.useState({});
+    const [selectedProduct, setSelectedProduct] = React.useState(null); // Состояние для выбранного продукта
 
-    useEffect(() => {
+    React.useEffect(() => {
         if (userId) {
             dispatch(getFavorites(userId));
         }
     }, [dispatch, userId]);
 
-    useEffect(() => {
+    React.useEffect(() => {
         const handleKeyDown = (event) => {
             if (event.key === "Escape") {
                 handleCloseModal();
@@ -73,7 +73,7 @@ function Favorites() {
     };
 
     return (
-        <div className="content p-40 all-pages favorites-page">
+        <div className="content p-40 all-pages">
             <div className="d-flex align-center justify-between mb-40">
                 <h1>Мои закладки</h1>
             </div>
@@ -121,6 +121,9 @@ function Favorites() {
                     onClose={handleCloseModal}
                     onAddToCart={handleAddToCart}
                     loading={loading[selectedProduct._id]}
+                    isInCart={cart.some(
+                        (item) => item.product._id === selectedProduct._id
+                    )}
                 />
             )}
         </div>

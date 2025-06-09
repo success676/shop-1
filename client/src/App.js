@@ -13,9 +13,9 @@ import Orders from "./pages/Orders/Orders.jsx";
 import { LoginPage } from "./pages/LoginPage";
 import { RegisterPage } from "./pages/RegisterPage";
 import Profile from "./pages/Profile.jsx";
-import AdminDashboard from "./pages/Admin/AdminDashboard.jsx";
-import Users from "./pages/Admin/AdminUsers.jsx";
-import Products from "./pages/Admin/AdminProducts.jsx";
+import AdminDashboard from "./pages/Admin/AdminDashboard";
+import Users from "./pages/Admin/AdminUsers/AdminUsers";
+import Products from "./pages/Admin/AdminProducts/AdminProducts";
 import AdminOrders from "./pages/Admin/AdminOrders.jsx";
 import Checkout from "./pages/Checkout/Checkout.jsx";
 

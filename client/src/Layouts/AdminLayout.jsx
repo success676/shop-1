@@ -1,6 +1,6 @@
 import React from "react";
 
-import AdminNav from "../components/Admin/AdminNav";
+import AdminNav from "../components/Admin/AdminNav/AdminNav";
 import Header from "../components/Header/Header";
 
 export const AdminLayout = ({ children }) => {
